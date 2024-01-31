@@ -1,0 +1,18 @@
+.alert {
+  display: block;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 15px;
+  display: flex;
+  gap: var(--size-12);
+}
+
+.alert.success {
+  background-color: #dcf3d5;
+  color: #556c4d;
+  border: 2px solid #9fce8f;
+}
+
+.alert.success svg {
+  fill: #62795a;
+}

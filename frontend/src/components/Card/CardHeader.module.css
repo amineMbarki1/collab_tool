@@ -1,0 +1,4 @@
+.cardHeader {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--padding-card-body);
+}

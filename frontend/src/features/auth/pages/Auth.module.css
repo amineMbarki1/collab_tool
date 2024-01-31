@@ -1,0 +1,15 @@
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid black;
+    height: 100vh;
+}
+
+.formContainer {
+    width: 500px;
+    padding: var(--size-32) var(--size-48);
+}

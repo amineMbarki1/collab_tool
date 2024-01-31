@@ -1,0 +1,10 @@
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.textFieldLabel {
+  color: var(--color-secondary-text);
+  margin-bottom: var(--size-8);
+  font-weight: 500;
+}

@@ -1,0 +1,45 @@
+.postInfo {
+  display: flex;
+}
+
+.post {
+  display: flex;
+  gap: var(--size-4);
+  width: 100%;
+}
+
+.postInfo {
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: var(--size-4);
+}
+
+.postInfo small {
+  color: var(--color-secondary-text);
+}
+
+.comment {
+  display: flex;
+  gap: var(--size-8);
+  margin-bottom: var(--size-8);
+}
+
+.comment > div {
+  flex: 1;
+}
+
+.reaction {
+  display: flex;
+  gap: var(--size-12);
+}
+
+.avatar {
+  width: var(--size-48);
+  height: var(--size-48);
+}
+
+
+.ghostButton {
+  padding: 0.25rem;
+}

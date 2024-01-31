@@ -1,0 +1,49 @@
+
+.headerContainer {
+    border-bottom: 0;
+}
+.header {
+    text-align: center;
+}
+
+.input {
+    margin-top: var(--size-8);
+}
+.loginButton {
+    margin-top: var(--size-32);
+}
+
+.signup {
+    display: flex;
+    align-items: baseline;
+    margin: var(--size-8) 0;
+}
+
+.signupLink {
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-left: var(--size-4);
+}
+
+
+.footerContainer {
+    padding: 0;
+    border-top: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.separator {
+   font-weight: bold;
+   display: flex;
+   align-items: center;
+   gap: var(--size-8)
+}
+
+.separator::before, .separator::after{
+    content: "";
+    height: 1px;
+    background-color: var(--color-border);
+    flex: 1;
+}
+

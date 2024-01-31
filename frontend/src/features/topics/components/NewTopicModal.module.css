@@ -1,0 +1,9 @@
+
+
+
+.modalFooter {
+    display: flex;
+    gap: var(--size-12);
+    justify-content: flex-end;
+}
+

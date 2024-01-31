@@ -1,0 +1,70 @@
+:root {
+  --color-white: #fff;
+  --color-black: #222;
+  --color-accent: #ed0b4c;
+  --color-dark: #303840;
+  --color-primary: #5567ff;
+  --color-secondary: #868e96;
+  --color-success: #556c4d;
+  --color-success-light: #dcf3d5;
+
+  --color-primary-50: #e5e8ff;
+  --color-primary-100: #e5e8ff;
+  --color-primary-200: #e5e8ff;
+  --color-primary-600: #0013b3;
+  --color-primary-700: #000d80;
+
+  --color-accent-600: #ab0837;
+
+  --color-main-foreground: var(--color-white);
+  --color-main-background: #f5f7fa;
+  --color-main-text: #272c33;
+  --color-secondary-text: #939599;
+  --color-border: #dfe2e6;
+
+  --color-background-sidebar: #303956;
+  --color-link-sidebar: #48526b;
+
+  --color-icon: #a6b0cf;
+
+  /* === === */
+  --box-shadow-card: 0 3px 3px -2px rgba(39, 44, 51, 0.1),
+    0 3px 4px 0 rgba(39, 44, 51, 0.04), 0 1px 8px 0 rgba(39, 44, 51, 0.02);
+
+  --box-shadow-idk: rgba(149, 157, 165, 0.15) 0px 3px 6px 0px;
+
+  /* Size calculated assuming 1rem = 16px 
+       --size-64 =  64px = 4rem =  4 * 16;
+    
+    */
+  --size-4: 0.25rem;
+  --size-8: 0.5rem;
+  --size-12: 0.75rem;
+  --size-16: 1rem;
+  --size-24: 1.5rem;
+  --size-32: 2rem;
+  --size-40:2.5rem;
+  --size-48: 3rem;
+  --size-64: 4rem;
+  --size-96: 6rem;
+  --size-128: 8rem;
+  --size-192: 12rem;
+  --size-256: 16rem;
+  --size-384: 24rem;
+  --size-512: 32rem;
+  --size-640: 40rem;
+  --size-768: 48rem;
+
+  --padding-card-body: var(--size-8) var(--size-12);
+
+  --width-sidebar: var(--size-64);
+}
+
+html[data-theme="dark"] {
+  --color-main-background: #1d1e26;
+  --color-main-foreground: #22242e;
+  --color-main-text: var(--color-white);
+  --color-secondary-text: #8a8f97;
+  --color-border: #3b3b3d;
+  
+}

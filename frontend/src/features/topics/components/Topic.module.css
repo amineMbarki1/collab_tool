@@ -1,0 +1,23 @@
+.topicsSection {
+  width: var(--size-384);
+}
+
+.skeleton {
+  padding: var(--size-12) var(--size-16);
+}
+
+.emptyData {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.emptyData svg {
+  height: 150px;
+}
+
+.topicsList {
+  margin-top: var(--size-16);
+}

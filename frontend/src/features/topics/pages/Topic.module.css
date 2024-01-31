@@ -1,0 +1,38 @@
+
+
+
+
+.mainContent {
+  /* max-width: 960px; */
+  /* margin: 0 auto; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.postsSection {
+  flex: 1;
+}
+
+.detailsSection {
+  flex: 1;
+  min-width: 350px;
+}
+
+.empty {
+  width: 100%;
+  height: 200px;
+  margin-top: 120px
+ 
+}
+.empty img {
+  height: 250px;
+  width: 250px;
+}

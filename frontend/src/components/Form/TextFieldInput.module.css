@@ -1,0 +1,40 @@
+.textFieldInput {
+  box-shadow: inset var(--color-border) 0 0 0 1px;
+  border: 0;
+  appearance: none;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+  background-color: var(--color-main-foreground);
+  color: var(--color-main-text);
+}
+
+.textFieldInputLg {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+}
+
+.textFieldInputSm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.textFieldInput:hover {
+  box-shadow: 0 0 0 0 #fff inset, var(--color-primary) 0 0 0 2px;
+}
+
+.textFieldInput:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0 #fff inset, var(--color-primary) 0 0 0 3px;
+}
+
+
+.textFieldInputError {
+  box-shadow: inset var(--color-accent) 0 0 0 2px;
+}
+
+.errorMessage {
+  color: var(--color-accent);
+}

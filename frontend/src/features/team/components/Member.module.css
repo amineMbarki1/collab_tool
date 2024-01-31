@@ -1,0 +1,34 @@
+.member {
+  background-color: var(--color-main-background);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s ease-in-out;
+  position: relative;
+}
+.member:hover {
+  border: 2px solid var(--color-border);
+}
+
+.member.selected {
+  border: 2px solid var(--color-primary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text {
+    font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+}

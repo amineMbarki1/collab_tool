@@ -1,0 +1,50 @@
+.content {
+  background-color: var(--color-main-background);
+}
+
+.label {
+  font-weight: 700;
+  display: block;
+}
+
+.editButton {
+  color: var(--color-primary);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-primary);
+}
+.body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.header {
+  padding-bottom: 0;
+}
+.tab {
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  margin-right: var(--size-8);
+  padding-bottom:5px;
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.nextButton {
+  margin-left: auto;
+  margin-top: var(--size-8);
+}
+.emptyDataIndicator {
+ height: 150px;
+
+}
+
+.emptyDataIndicator img {
+  width: 150px;
+}
