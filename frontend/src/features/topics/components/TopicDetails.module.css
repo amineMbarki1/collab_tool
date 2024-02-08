@@ -1,6 +1,4 @@
-.content {
-  background-color: var(--color-main-background);
-}
+
 
 .label {
   font-weight: 700;
@@ -29,7 +27,7 @@
   background-color: transparent;
   cursor: pointer;
   margin-right: var(--size-8);
-  padding-bottom:5px;
+  padding-bottom: 5px;
 }
 
 .tab.active {
@@ -41,10 +39,23 @@
   margin-top: var(--size-8);
 }
 .emptyDataIndicator {
- height: 150px;
-
+  height: 150px;
 }
 
 .emptyDataIndicator img {
   width: 150px;
+}
+
+.deleteButton {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+.deleteButton:hover {
+ color: white;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--size-8);
 }

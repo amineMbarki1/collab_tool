@@ -47,13 +47,11 @@ export default function TopicDetailsModal({ topic, ...props }: Props) {
 
         {openTab === "members" && <TopicMembers topic={topic} />}
 
-        {/* {isInviteMembersOpen && openTab === "members" && (
-          <InviteMembers topic={topic} />
-        )} */}
+        
       </ModalContent>
-      <ModalFooter>
-        <Button color="accent">DELETE</Button>
-        <Button color="secondary">SAVE</Button>
+      <ModalFooter className={styles.footer}>
+        <Button className={styles.deleteButton} color="accent">DELETE</Button>
+        <Button variant="outline" color="primary">SAVE</Button>
       </ModalFooter>
     </Modal>
   );

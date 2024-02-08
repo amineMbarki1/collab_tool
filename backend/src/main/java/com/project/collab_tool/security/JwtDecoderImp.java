@@ -18,6 +18,8 @@ public class JwtDecoderImp implements JwtDecoder {
             JWTClaimsSet jwtClaimsSet = parsed.getJWTClaimsSet();
             jwtClaimsSet.getIssuer();
 
+            //TODO: Depending on the issuer returns the corresponding decoder
+
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

@@ -46,4 +46,15 @@ public class TopicController {
         return ResponseEntity.ok().body(topicService.getMembers(id));
     }
 
+    @DeleteMapping("/{topicId}/members/{memberId}")
+    public ResponseEntity<String> deleteMember(@PathVariable long topicId,
+                                               @PathVariable long memberId,
+                                               JwtAuthenticationToken jwtAuthenticationToken) {
+        UserInfo user =  (UserInfo) jwtAuthenticationToken.getDetails();
+        topicService.verifyOwnership(user.getId(), topicId);
+        topicService.deleteMember(memberId, topicId);
+        return ResponseEntity.ok("Deleted successfully");
+    }
+
+
 }

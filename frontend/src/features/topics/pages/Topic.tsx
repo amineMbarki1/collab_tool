@@ -18,6 +18,7 @@ import { getAllPostsAction, selectPostsByTopicId } from "../postsSlice";
 import styles from "./Topic.module.css";
 import TopicDetails from "../components/TopicDetailsModal";
 import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
+import Test from "@/Test";
 
 export default function Topic() {
   const { useAppSelector, dispatch } = useAppStore();
@@ -41,6 +42,7 @@ export default function Topic() {
   return (
     topic && (
       <>
+        <Test />
         {isTopicDetailsOpen && (
           <TopicDetails
             topic={topic}

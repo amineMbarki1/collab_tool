@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import 'react-loading-skeleton/dist/skeleton.css'
-
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { AppRoutes } from "./routes";
 import store from "./store";
@@ -13,7 +12,6 @@ import store from "./store";
 import "./styles/vars.css";
 import "./styles/reset.css";
 import "./styles/App.css";
-
 
 function App() {
   return (

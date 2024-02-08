@@ -14,18 +14,21 @@ export default function Member({ member, action }: Props) {
   const { email, firstName, lastName } = member;
 
   return (
-    <Card className={styles.member}>
-      <CardBody className={styles.content}>
-        <Avatar />
-        <small title={`${firstName} ${lastName}`} className={styles.text}>
-          {firstName} {lastName}
-        </small>
+    <>
+      
+      <Card className={styles.member}>
+        <CardBody className={styles.content}>
+          <Avatar />
+          <small title={`${firstName} ${lastName}`} className={styles.text}>
+            {firstName} {lastName}
+          </small>
 
-        <small title={email} className={styles.text}>
-          {email}
-        </small>
-        {action}
-      </CardBody>
-    </Card>
+          <small title={email} className={styles.text}>
+            {email}
+          </small>
+          {action}
+        </CardBody>
+      </Card>
+    </>
   );
 }

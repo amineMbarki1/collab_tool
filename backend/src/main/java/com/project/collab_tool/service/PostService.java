@@ -18,6 +18,7 @@ public class PostService {
     private final TopicService topicService;
     private final UserService userService;
     private final PostRepository postRepository;
+    private final NotificationService notificationService;
 
 
     public PostResponse createPost(PostRequest postRequest) {
@@ -31,6 +32,11 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
+
+        notificationService.notifyUsers(topic.getMembers()
+                .stream()
+                .map(member -> member.getId())
+                .toList(), "new Post has been added baby");
 
         return mapToPostResponse(post);
 

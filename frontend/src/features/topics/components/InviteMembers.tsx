@@ -5,15 +5,15 @@ import { useAppStore } from "@/hooks";
 import { getTeamAction } from "@/features/team";
 import { Button } from "@/components/Button";
 import { Member } from "@/features/team";
-
 import styles from "./InviteMembers.module.css";
-
 import {
   addNewMemberAction,
   selectTopicById,
   selectTopicMemberExistsById,
 } from "../topicsSlice";
 import { Topic } from "../types";
+
+import { MemberSkeleton } from "@/features/team";
 
 export default function InviteMembers({ topic }: { topic: Topic }) {
   const { useAppSelector, dispatch } = useAppStore();
@@ -27,9 +27,10 @@ export default function InviteMembers({ topic }: { topic: Topic }) {
   }, [dispatch]);
 
   return (
-    
-      <div className={styles.container}>
-        {members.map((member) => (
+    <div className={styles.container}>
+      {status === "loading" && skeleton}
+      {status === "succeeded" &&
+        members.map((member) => (
           <Member
             key={member.id}
             member={member}
@@ -60,7 +61,15 @@ export default function InviteMembers({ topic }: { topic: Topic }) {
             }
           />
         ))}
-      </div>
-    
+    </div>
   );
 }
+
+const skeleton = (
+  <>
+    <MemberSkeleton />
+    <MemberSkeleton />
+    <MemberSkeleton />
+    <MemberSkeleton />
+  </>
+);

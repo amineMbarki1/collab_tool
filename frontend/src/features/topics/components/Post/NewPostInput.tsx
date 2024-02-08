@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useRef } from "react";
 
@@ -6,7 +7,7 @@ import { Card, CardBody, CardFooter } from "@/components/Card";
 import { Button } from "@/components/Button";
 import SendIcon from "@/assets/icons/icon-send.svg?react";
 import styles from "./NewPostInput.module.css";
-import AttachFiles from "./AttachFiles";
+// import AttachFiles from "./AttachFiles";
 import { Topic } from "../../types";
 import { useAppStore } from "@/hooks";
 import { createPostAction } from "../../postsSlice";

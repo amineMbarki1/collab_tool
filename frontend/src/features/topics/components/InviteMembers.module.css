@@ -4,3 +4,22 @@
   gap: var(--size-12);
   margin-top: var(--size-12);
 }
+
+.nextButton {
+  background-color: transparent;
+  color: var(--color-primary);
+  margin-left: auto;
+}
+
+.nextButton svg {
+  fill: var(--color-primary);
+}
+.nextButton:hover {
+  color: var(--color-primary);
+  background-color: transparent;
+}
+
+.emptyDataIndicator img {
+  height: 150px;
+  width: 150px;
+}

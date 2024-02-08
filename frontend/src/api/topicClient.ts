@@ -23,3 +23,16 @@ export async function getMembers(topicId: number) {
   const { data } = await httpClient.get<User[]>(`/topics/${topicId}/members`);
   return data;
 }
+
+export async function removeMember({
+  topicId,
+  memberId,
+}: {
+  topicId: number;
+  memberId: number;
+}) {
+  const { data } = await httpClient.delete<string>(
+    `/topics/${topicId}/members/${memberId}`
+  );
+  return data;
+}

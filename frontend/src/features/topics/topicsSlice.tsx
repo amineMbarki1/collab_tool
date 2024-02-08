@@ -11,6 +11,7 @@ import {
   createTopic,
   getMembers,
   getTopics,
+  removeMember,
 } from "@/api/topicClient";
 import serializeAxiosError from "@/utils/serializeAxiosError";
 import { Status, User } from "@/types";
@@ -24,6 +25,7 @@ interface TopicsState {
   getTopicsError: SerializedError | null;
   addMemberStatus: Record<string, Status>;
   getMembersStatus: Record<string, Status>;
+  removeMemberStatus: Record<string, Status>;
 }
 
 const initialState = {
@@ -35,6 +37,7 @@ const initialState = {
   getTopicsError: null,
   getTopicsStatus: "idle",
   getMembersStatus: {},
+  removeMemberStatus: {},
 } as TopicsState;
 
 const topicsSlice = createSlice({
@@ -55,7 +58,7 @@ const topicsSlice = createSlice({
       }
     );
     builder.addCase(createTopicAction.pending, (state) => {
-      state.createTopicStatus === "loading";
+      state.createTopicStatus = "loading";
     });
     builder.addCase(createTopicAction.rejected, (state, action) => {
       state.createTopicStatus = "failed";
@@ -96,6 +99,17 @@ const topicsSlice = createSlice({
       const found = state.topics.find(({ id }) => id === topicId);
       found!.members = action.payload;
     });
+
+    builder.addCase(removeMemberAction.pending, (state, action) => {
+      const { topic, member } = action.meta.arg;
+      state.removeMemberStatus[topic.id + member.id] = "loading";
+    });
+    builder.addCase(removeMemberAction.fulfilled, (state, action) => {
+      const { topic, member } = action.meta.arg;
+      state.removeMemberStatus[topic.id + member.id] = "succeeded";
+      const found = state.topics.find(({ id }) => id === topic.id);
+      found!.members = found!.members.filter(({ id }) => id !== member.id);
+    });
   },
 });
 
@@ -118,6 +132,12 @@ export const addNewMemberAction = createAsyncThunk(
   async ({ topic, member }: { topic: Topic; member: User }) =>
     await addMember({ topicId: topic.id, userId: member.id }),
   { serializeError: serializeAxiosError as (arg: unknown) => SerializedError }
+);
+
+export const removeMemberAction = createAsyncThunk(
+  "/topics/removeMember",
+  ({ topic, member }: { topic: Topic; member: User }) =>
+    removeMember({ topicId: topic.id, memberId: member.id })
 );
 
 export const getMembersAction = createAsyncThunk(

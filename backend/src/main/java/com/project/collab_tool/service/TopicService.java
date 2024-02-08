@@ -68,6 +68,18 @@ public class TopicService {
         return users;
     }
 
+    public void verifyOwnership(long userId, long topicId) {
+      var topics = userService.getUserEntity(userId).getTopics();
+     var hasTopic =    topics.stream().anyMatch(topic -> topic.getId() == topicId);
+     if(!hasTopic) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
+
+    public void deleteMember(long memberId, long topicId) {
+      var topic = this.getTopicEntityById(topicId);
+      topic.getMembers().removeIf(member -> member.getId() == memberId );
+      topicRepository.save(topic);
+    }
+
     private TopicResponse mapToTopicResponse(Topic topic) {
         TopicResponse topicResponse = new TopicResponse();
         BeanUtils.copyProperties(topic, topicResponse);
