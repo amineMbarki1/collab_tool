@@ -1,25 +1,13 @@
 import { useEffect } from "react";
 
 import { useAppStore } from "./hooks";
-
-import { EventSourcePolyfill } from "event-source-polyfill";
+import { connectAction } from "./features/notifications";
 
 export default function Test() {
-  const { useAppSelector } = useAppStore();
-  const token = useAppSelector((state) => state.auth.accessToken);
+  const { dispatch } = useAppStore();
   useEffect(() => {
-    if (token) {
-      const eventSource = new EventSourcePolyfill(
-        "http://localhost:8080/api/notifications/2",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      eventSource.onmessage = (message) => {
-        console.log(message);
-      };
-    }
-  }, [token]);
+    dispatch(connectAction());
+  }, [dispatch]);
 
   return null;
 }

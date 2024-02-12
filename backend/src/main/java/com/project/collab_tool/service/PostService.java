@@ -1,5 +1,7 @@
 package com.project.collab_tool.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.project.collab_tool.dto.NotificationResponse;
 import com.project.collab_tool.dto.PostRequest;
 import com.project.collab_tool.dto.PostResponse;
 import com.project.collab_tool.model.Post;
@@ -9,6 +11,7 @@ import com.project.collab_tool.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -21,7 +24,7 @@ public class PostService {
     private final NotificationService notificationService;
 
 
-    public PostResponse createPost(PostRequest postRequest) {
+    public PostResponse createPost(PostRequest postRequest) throws JsonProcessingException {
         Topic topic = topicService.getTopicEntityById(postRequest.getTopicId());
         UserInfo user = userService.getUserEntity(postRequest.getUserId());
         Post post = Post.builder()
@@ -36,7 +39,7 @@ public class PostService {
         notificationService.notifyUsers(topic.getMembers()
                 .stream()
                 .map(member -> member.getId())
-                .toList(), "new Post has been added baby");
+                .toList(), post);
 
         return mapToPostResponse(post);
 

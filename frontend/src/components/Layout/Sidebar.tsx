@@ -5,6 +5,7 @@ import GroupIcon from "@/assets/icons/icon-group.svg?react";
 import useDarkTheme from "@/hooks/useDarkTheme";
 import styles from "./Sidebar.module.css";
 import useUrlHash from "@/hooks/useUrlHash";
+import { Notifications } from "@/features/notifications";
 
 export default function Sidebar() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +26,7 @@ export default function Sidebar() {
               <HomeIcon className={styles.icon} />
             </a>
           </li>
-       
+
           <li title="team">
             <a
               className={`${styles.navLink}  ${
@@ -44,6 +45,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <div className={styles.bottomMenu}>
+        <Notifications />
         <LightModeIcon
           onClick={() => setIsEnabled((prev) => !prev)}
           style={{ cursor: "pointer" }}

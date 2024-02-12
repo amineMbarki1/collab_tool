@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  font-size: 0.9rem;
+  align-items: center;
+  gap: var(--size-8);
+  margin: var(--size-8) 0;
+  padding: var(--size-8);
+  cursor: pointer;
+}
+
+.container:hover {
+  background-color: var(--color-main-background);
+}
+
+.timeAgo {
+  color: var(--color-text-secondary);
+}
+
+.topic svg {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+}
+
+.unreadIcon {
+  fill: var(--color-secondary);
+}

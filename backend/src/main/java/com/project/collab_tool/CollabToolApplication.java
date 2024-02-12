@@ -1,26 +1,22 @@
 package com.project.collab_tool;
 
+
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.Period;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 @SpringBootApplication
 @EnableJpaAuditing
+@EnableAsync
 public class CollabToolApplication {
     /*
     systemctl start docker
@@ -29,13 +25,15 @@ public class CollabToolApplication {
     * */
     public static void main(String[] args) {
 
+
         SpringApplication.run(CollabToolApplication.class, args);
     }
 
     @Bean
-    public CommandLineRunner myCommandLineRunner(PasswordEncoder passwordEncoder, UserRepository userRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public CommandLineRunner myCommandLineRunner(PasswordEncoder passwordEncoder,
+                                                 UserRepository userRepository){
         return args -> {
-            
+
 
             UserInfo userInfo = UserInfo.builder().firstName("amine").lastName("mbarki").email("amine@gmail.com").password(passwordEncoder.encode("password")).build();
             userRepository.save(userInfo);
@@ -50,27 +48,12 @@ public class CollabToolApplication {
             userRepository.save(userInfo);
 
             userRepository.findByFullNameOrEmailPrefix("a");
-            ApplicationEvent event = new ApplicationEvent("my event bb") {
-
-            };
-
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(() -> {
-
-                for (int i = 0; true; i++) {
-                    try {
-                        applicationEventPublisher.publishEvent(event);
-
-                        Thread.sleep(2000);
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
 
 
-                }
 
 
-            });
+
+
 
 
         };

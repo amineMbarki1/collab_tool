@@ -1,6 +1,7 @@
 package com.project.collab_tool.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project.collab_tool.dto.PostRequest;
 import com.project.collab_tool.dto.PostResponse;
 import com.project.collab_tool.model.Post;
@@ -22,7 +23,7 @@ public class PostController {
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postRequest,
                                                    JwtAuthenticationToken authenticationToken,
-                                                   @PathVariable Long id) {
+                                                   @PathVariable Long id) throws JsonProcessingException {
         var userInfo = (UserInfo) authenticationToken.getDetails();
         postRequest.setUserId(userInfo.getId());
         postRequest.setTopicId(id);

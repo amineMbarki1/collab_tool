@@ -8,5 +8,13 @@ body {
 }
 
 .text-secondary {
-  color: var(--color-secondary-text)
+  color: var(--color-secondary-text);
+}
+
+.arrow {
+  border-top-color: var(--color-main-background) !important;
+}
+
+.icon {
+  fill: var(--color-icon);
 }

@@ -3,6 +3,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./features/auth";
 import { teamReducer } from "./features/team";
 import { topicsReducer, postsReducer } from "./features/topics";
+import {
+  notificationsMiddleware,
+  notificationsReducer,
+} from "./features/notifications";
 
 const store = configureStore({
   reducer: {
@@ -10,7 +14,10 @@ const store = configureStore({
     team: teamReducer,
     topic: topicsReducer,
     post: postsReducer,
+    notification: notificationsReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(notificationsMiddleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

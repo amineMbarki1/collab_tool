@@ -143,3 +143,6 @@ they also subscribe to any future updates.
 4. The store notifies all parts of the UI that are subscribed that the store has been updated
 5. Each UI component that needs data from the store checks to see if the parts of the state they need have changed.
 6. Each component that sees its data has changed forces a re-render with the new data, so it can update what's shown on the screen
+
+## Middleware
+point that sits between dispatching an action, and the moment it reaches the reducer

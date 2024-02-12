@@ -1,0 +1,41 @@
+.navLink {
+  height: var(--size-48);
+  width: var(--size-48);
+  display: inline-block;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+.navLink svg {
+  fill: var(--color-icon);
+}
+
+.navLink.active {
+  background-color: #3e4a56;
+}
+.navLink.active svg {
+  fill: var(--color-primary);
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.closeButton svg {
+  fill: white;
+  transition: fill 0.1s;
+}
+
+.closeButton:hover svg {
+  fill: var(--color-dark);
+}
+
+.container {
+  border: 0px;
+}
