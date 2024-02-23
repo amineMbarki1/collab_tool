@@ -1,7 +1,6 @@
 package com.project.collab_tool.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.project.collab_tool.dto.NotificationResponse;
 import com.project.collab_tool.dto.PostRequest;
 import com.project.collab_tool.dto.PostResponse;
 import com.project.collab_tool.model.Post;
@@ -56,6 +55,7 @@ public class PostService {
                 .createdOn(post.getCreatedOn())
                 .content(post.getContent())
                 .topicId(post.getTopic().getId())
+                .id(post.getId())
                 .user(
                         userService.mapToUserResponse(post.getCreatedBy()
                         )

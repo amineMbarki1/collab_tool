@@ -21,6 +21,7 @@ public class PostResponse {
     private Instant createdOn;
     private Instant lastUpdatedOn;
     private Long topicId;
+    private long id;
     private List<FileInfo> files = new ArrayList<>();
 
 }

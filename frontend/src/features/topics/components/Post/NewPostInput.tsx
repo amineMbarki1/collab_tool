@@ -33,11 +33,7 @@ export default function NewPostInput({ topic }: { topic: Topic }) {
   return (
     <Card>
       <CardBody>
-        <MarkdownEditor
-          ref={ref}
-          onChange={(val) => console.log(val)}
-          markdown=""
-        />
+        <MarkdownEditor ref={ref} markdown="" />
       </CardBody>
       <CardFooter className={styles.footer}>
         {/* <AttachFiles /> */}

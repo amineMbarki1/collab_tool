@@ -26,7 +26,6 @@ export default function NewTopicModal(props: ModalProps) {
   const { createTopicStatus } = useAppSelector((state) => state.topic);
 
 
-  console.log(createTopicStatus);
   
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();

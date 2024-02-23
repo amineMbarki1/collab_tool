@@ -4,11 +4,11 @@ package com.project.collab_tool.service;
 import com.project.collab_tool.dto.TopicRequest;
 import com.project.collab_tool.dto.TopicResponse;
 import com.project.collab_tool.dto.UserResponse;
+import com.project.collab_tool.mappers.TopicMapper;
 import com.project.collab_tool.model.Topic;
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.TopicRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +20,8 @@ import java.util.List;
 public class TopicService {
     private final TopicRepository topicRepository;
     private final UserService userService;
+    private final NotificationService notificationService;
+    private final TopicMapper topicMapper;
 
 
     public TopicResponse createTopic(TopicRequest topicRequest, Long topicOwnerId) {
@@ -31,13 +33,13 @@ public class TopicService {
         UserInfo userInfo = userService.getUserEntity(topicOwnerId);
         topic.setCreatedBy(userInfo);
         topicRepository.save(topic);
-        return mapToTopicResponse(topic);
+        return topicMapper.mapToTopicResponse(topic);
     }
 
 
     public List<TopicResponse> getAllTopics() {
 
-        return topicRepository.findAll().stream().map(this::mapToTopicResponse).toList();
+        return topicRepository.findAll().stream().map(topicMapper::mapToTopicResponse).toList();
 
     }
 
@@ -59,7 +61,10 @@ public class TopicService {
 
         UserInfo user = userService.getUserEntity(memberId);
         topic.getMembers().add(user);
-        topicRepository.save(topic);
+
+       topicRepository.save(topic);
+
+        notificationService.notifyUser(memberId, topic);
     }
 
     public List<UserResponse> getMembers(Long id) {
@@ -69,21 +74,15 @@ public class TopicService {
     }
 
     public void verifyOwnership(long userId, long topicId) {
-      var topics = userService.getUserEntity(userId).getTopics();
-     var hasTopic =    topics.stream().anyMatch(topic -> topic.getId() == topicId);
-     if(!hasTopic) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        var topics = userService.getUserEntity(userId).getTopics();
+        var hasTopic = topics.stream().anyMatch(topic -> topic.getId() == topicId);
+        if (!hasTopic) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
     }
 
     public void deleteMember(long memberId, long topicId) {
-      var topic = this.getTopicEntityById(topicId);
-      topic.getMembers().removeIf(member -> member.getId() == memberId );
-      topicRepository.save(topic);
-    }
-
-    private TopicResponse mapToTopicResponse(Topic topic) {
-        TopicResponse topicResponse = new TopicResponse();
-        BeanUtils.copyProperties(topic, topicResponse);
-        return topicResponse;
+        var topic = this.getTopicEntityById(topicId);
+        topic.getMembers().removeIf(member -> member.getId() == memberId);
+        topicRepository.save(topic);
     }
 
 

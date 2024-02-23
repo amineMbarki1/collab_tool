@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, Middleware } from "@reduxjs/toolkit";
 
-import { Notification } from "./types";
+import { NewPostNotification, Notification } from "./types";
 import { RootState } from "@/store";
 import { EventSourcePolyfill } from "event-source-polyfill";
 
@@ -30,21 +31,25 @@ export function disconnectAction(): DisconnectAction {
 
 export default notificationsSlice.reducer;
 
-export const notificationsMiddleware =
-  (store) => (next) => (action: Action) => {
+export const notificationsMiddleware: Middleware =
+  (store) => (next) => (action) => {
     let eventSource!: EventSourcePolyfill;
 
     if (action.type === "notifications/connect") {
       const state = store.getState() as RootState;
+     //TODO: Change these when done testing
       const userId = state.auth.user!.id;
       const token = state.auth.accessToken;
 
-      eventSource = new EventSourcePolyfill(`${BASE_URL}/${2}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      eventSource = new EventSourcePolyfill(`${BASE_URL}/${2}`);
 
       eventSource.onmessage = (message) => {
-        store.dispatch(received(JSON.parse(message.data)));
+        const notification = JSON.parse(message.data) as Notification;
+
+        if (isNewPostNotification(notification)) notification.type = "newPost";
+        else notification.type = "topicInvite";
+
+        store.dispatch(received(notification));
       };
     }
 
@@ -64,3 +69,9 @@ interface DisconnectAction {
 }
 
 type Action = DisconnectAction | ConnectAction;
+
+function isNewPostNotification(
+  notification: Notification
+): notification is NewPostNotification {
+  return (notification as NewPostNotification).postId !== undefined;
+}

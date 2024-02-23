@@ -36,3 +36,9 @@
   height: 250px;
   width: 250px;
 }
+.postsWrapepr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-12);
+  padding: var(--size-12 --size-12);
+}

@@ -6,7 +6,8 @@ import { IconButton } from "@/components/Button";
 import CloseIcon from "@/assets/icons/icon-close.svg?react";
 import NotificationIcon from "@/assets/icons/icon-notification.svg?react";
 import styles from "./Notifications.module.css";
-import Notification from "./Notification";
+import NewPostNotification from "./NewPostNotification";
+import TopicInviteNotification from "./TopicInviteNotification";
 import { useAppStore } from "@/hooks";
 
 export default function Notifications() {
@@ -15,6 +16,7 @@ export default function Notifications() {
   const { useAppSelector } = useAppStore();
 
   const notifications = useAppSelector((state) => state.notification);
+  console.log(notifications);
 
   return (
     <Popover
@@ -43,9 +45,13 @@ export default function Notifications() {
                 icon={<CloseIcon height={20} />}
               />
             </CardHeader>
-            {notifications.map((notification) => (
-              <Notification notification={notification} />
-            ))}
+            {notifications.map((notification) =>
+              notification.type === "newPost" ? (
+                <NewPostNotification notification={notification} />
+              ) : (
+                <TopicInviteNotification notification={notification} />
+              )
+            )}
           </Card>
         </ArrowContainer>
       )}

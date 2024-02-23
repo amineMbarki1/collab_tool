@@ -6,6 +6,13 @@ export interface NewPostNotification {
   topicName: number;
   postedBy: User;
   time: Date;
+  type: "newPost";
 }
 
-export type Notification = NewPostNotification;
+export interface TopicInviteNotification {
+  type: "topicInvite";
+  topicName: string;
+  topicOwnerName: string;
+}
+
+export type Notification = TopicInviteNotification | NewPostNotification;

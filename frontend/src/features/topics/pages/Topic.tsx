@@ -15,10 +15,10 @@ import { useParams } from "react-router-dom";
 import { useAppStore } from "@/hooks";
 import { selectTopicById } from "../topicsSlice";
 import { getAllPostsAction, selectPostsByTopicId } from "../postsSlice";
-import styles from "./Topic.module.css";
 import TopicDetails from "../components/TopicDetailsModal";
 import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
-import Test from "@/Test";
+
+import styles from "./Topic.module.css";
 
 export default function Topic() {
   const { useAppSelector, dispatch } = useAppStore();
@@ -42,7 +42,6 @@ export default function Topic() {
   return (
     topic && (
       <>
-        <Test />
         {isTopicDetailsOpen && (
           <TopicDetails
             topic={topic}
@@ -65,17 +64,10 @@ export default function Topic() {
                 message={"No posts Yet"}
               />
             )}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 14,
-                padding: "10px 20px",
-              }}
-            >
-              {posts.map((post) => (
-                <Post post={post} key={post.id} />
-              ))}
+            <div className={styles.postsWrapper}>
+              {posts.map((post) => {
+                return <Post post={post} key={post.id} />;
+              })}
             </div>
           </SectionContent>
           <SectionFooter>

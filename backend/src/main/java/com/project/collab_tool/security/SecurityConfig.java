@@ -51,7 +51,7 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable());
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(authorize ->
-                authorize.requestMatchers("/api/login", "/api/signup")
+                authorize.requestMatchers("/api/login", "/api/signup", "/api/notifications/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated());

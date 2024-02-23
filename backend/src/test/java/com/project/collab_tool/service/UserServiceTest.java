@@ -3,7 +3,6 @@ package com.project.collab_tool.service;
 
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.UserRepository;
-import org.apache.catalina.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

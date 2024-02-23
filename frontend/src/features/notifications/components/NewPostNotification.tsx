@@ -1,13 +1,13 @@
 import { Avatar } from "@/components/Avatar";
 import TagIcon from "@/assets/icons/tag-icon.svg?react";
-import styles from "./Notification.module.css";
 import DotIcon from "@/assets/icons/dot-icon.svg?react";
-import { NewPostNotification } from "../types";
+import { NewPostNotification as NotificationType } from "../types";
+import styles from "./Notification.module.css";
 
-export default function Notification({
+export default function NewPostNotification({
   notification,
 }: {
-  notification: NewPostNotification;
+  notification: NotificationType;
 }) {
   return (
     <div className={styles.container}>
