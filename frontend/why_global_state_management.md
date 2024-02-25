@@ -35,7 +35,7 @@ Redux core is a small standalone JS library.
 Enable react components to iteract with a redux store by reading the state or dispatching actions tp update the store.
 
 * Redux Toolkit
-Recommended bu redux team has their best practices and simplified redux tasks, prevent mistakes.
+Recommended by redux team has their best practices and simplified redux tasks, prevent mistakes.
 
 * Redux DevTools Extension
 shows a history of the changes to the state in the redux store. "time-travel debugging"
@@ -145,4 +145,28 @@ they also subscribe to any future updates.
 6. Each component that sees its data has changed forces a re-render with the new data, so it can update what's shown on the screen
 
 ## Middleware
-point that sits between dispatching an action, and the moment it reaches the reducer
+point that sits between dispatching an action, and the moment it reaches the reduce.
+
+redux middleware consistes of 3 composed functions :
+* The outer function receives a "store API" object with {dispatch, getState}
+* The middle function receives the next middleware in the chain (or the actual store.dispatch method)
+* The inner function will be called with each action as it's passed through the middleware chain
+* Moving complex logic out of components.
+* async logic and side effects like updateing localStorage
+## Thunk middleware 
+The thunk middleware enable us to write functions that have access to getState and dispatch, and dispatch these functions as actions. Through these functions we can write asynchronous code that can interact with the store.
+
+## Redux Toolkit 
+### CreateSlice:
+
+
+### CreateAsyncThunk:
+A function that accepts a Redux type string and callback function that should return a promise.
+It generates promise lifecycle action types on the action prefix that you pass.
+and generates action creater for each lifecycle type :)
+
+then we can respond to these action types in our extraReducers :)
+
+writing async logic with thunks can be tedious. each thunk requires 3 different action types + matching action creators(pending/fullfilled/rejected)
+
+https://redux.js.org/usage/writing-logic-thunks

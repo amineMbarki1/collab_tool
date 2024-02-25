@@ -1,3 +1,9 @@
+
+/*
+A bug here "isToday(new Date("1994-12-04")"
+if the month name too long overlaps the timeline
+*/
+
 import { useEffect, useState } from "react";
 
 import { IconButton } from "@/components/Button";
@@ -17,6 +23,7 @@ import { selectTopicById } from "../topicsSlice";
 import { getAllPostsAction, selectPostsByTopicId } from "../postsSlice";
 import TopicDetails from "../components/TopicDetailsModal";
 import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
+import isToday from "@/utils/isToday";
 
 import styles from "./Topic.module.css";
 
@@ -64,10 +71,23 @@ export default function Topic() {
                 message={"No posts Yet"}
               />
             )}
-            <div className={styles.postsWrapper}>
-              {posts.map((post) => {
-                return <Post post={post} key={post.id} />;
-              })}
+            <div className={styles.timeline}>
+              <div className={styles.postsWrapper}>
+                {posts.map((post) => {
+                  return (
+                    <div key={post.id} className={styles.postWrapper}>
+                      <span className={styles.postedOn}>
+                        <small className={styles.postedAt}>
+                          {isToday(new Date(post.createdOn))}
+                        </small>
+                        7:24
+                      </span>
+                      <div className={styles.circle}></div>
+                      <Post post={post} key={post.id} />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </SectionContent>
           <SectionFooter>
@@ -78,3 +98,4 @@ export default function Topic() {
     )
   );
 }
+

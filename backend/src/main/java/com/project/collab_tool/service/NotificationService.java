@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
-    private final Map<Long, List<SseEmitter>> userIdToemitters = new HashMap<>();
+    private final Map<Long, List<SseEmitter>> userIdToemitters = new ConcurrentHashMap<>();
     private final NotificationRepository notificationRepository;
     private final NewPostNotificationRepository newPostNotificationRepository;
     private final ObjectMapper objectMapper;
@@ -31,7 +31,9 @@ public class NotificationService {
 
 
     public void addEmitter(Long userId, SseEmitter emitter) {
-        var emitters = userIdToemitters.putIfAbsent(userId, new ArrayList<>());
+        userIdToemitters.putIfAbsent(userId, new ArrayList<>());
+        var emitters = userIdToemitters.get(userId);
+
         emitters.add(emitter);
     }
 
@@ -46,19 +48,22 @@ public class NotificationService {
     @Async
     public void notifyUser(long userId, Topic topic) {
         UserInfo user = userService.getUserEntity(userId);
+
         var notification = new TopicInviteNotification();
         notification.setTopic(topic);
         notification.setUser(user);
         notification.setTime(Instant.now());
-        notificationRepository.save(notification);
-        var notificationResponse = new TopicInviteNotificationResponse();
 
+        notificationRepository.save(notification);
+
+        var notificationResponse = new TopicInviteNotificationResponse();
         notificationResponse.setTopicName(topic.getName());
         notificationResponse.setTopicId(topic.getId());
         notificationResponse.setTopicOwnerName(topic.getCreatedBy().getFullName());
         notificationResponse.setTime(notification.getTime());
 
         String serializedNotification = null;
+
         try {
             serializedNotification = objectMapper.writeValueAsString(notificationResponse);
         } catch (JsonProcessingException e) {
@@ -69,14 +74,15 @@ public class NotificationService {
         String finalSerializedNotification = serializedNotification;
 
         Optional.ofNullable(userIdToemitters.get(userId)).ifPresent((emitters) -> {
-            try {
+
                 for (SseEmitter emitter : emitters) {
-                    emitter.send(finalSerializedNotification);
+                    try {
+                        emitter.send(finalSerializedNotification);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error sending notification");
-            }
+
         });
 
         System.out.println("here");
@@ -106,12 +112,16 @@ public class NotificationService {
 
         for (long id : userIds) {
             Optional.ofNullable(userIdToemitters.get(id)).ifPresent(emitters -> {
-                try {
-                    for (SseEmitter emitter : emitters) emitter.send(notificationJson);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("Error sending notification");
-                }
+
+                    for (SseEmitter emitter : emitters) {
+                        try {
+                            emitter.send(notificationJson);
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
+                        }
+                    };
+
+
             });
         }
     }

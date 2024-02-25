@@ -19,6 +19,8 @@ export interface Post {
   id: number;
   topicId: number;
   user: User;
+  createdOn: string;
+  lastUpdateOn: string;
 }
 
 export interface PostRequest {

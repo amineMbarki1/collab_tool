@@ -1,16 +1,28 @@
-.postInfo {
-  display: flex;
-}
-
-.post {
-  display: flex;
-  gap: var(--size-4);
+.container {
+  position: relative;
   width: 100%;
+  margin-left: var(--size-16);
 }
 
+.arrow {
+  position: absolute;
+  top: var(--size-16);
+  left: -9px;
+  width: 0;
+  height: 0;
+  border-right: 13px solid var(--color-primary);
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+}
+.post {
+  border-left: 5px solid var(--color-primary);
+  max-width: var(--size-768);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1)²;
+  
+}
 .postInfo {
-  font-weight: 600;
   display: flex;
+  font-weight: 600;
   align-items: baseline;
   gap: var(--size-4);
 }
@@ -38,7 +50,6 @@
   width: var(--size-48);
   height: var(--size-48);
 }
-
 
 .ghostButton {
   padding: 0.25rem;
