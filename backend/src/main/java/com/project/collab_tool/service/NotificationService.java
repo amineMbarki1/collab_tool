@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.collab_tool.dto.NewPostNotificationResponse;
 import com.project.collab_tool.dto.TopicInviteNotificationResponse;
 import com.project.collab_tool.mappers.TopicMapper;
+import com.project.collab_tool.mappers.UserMapper;
 import com.project.collab_tool.model.*;
 import com.project.collab_tool.repository.NewPostNotificationRepository;
 import com.project.collab_tool.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -28,10 +31,12 @@ public class NotificationService {
     private final NewPostNotificationRepository newPostNotificationRepository;
     private final ObjectMapper objectMapper;
     private final UserService userService;
+    private final ApplicationEventPublisher eventPublisher;
+    private final UserMapper userMapper;
 
 
     public void addEmitter(Long userId, SseEmitter emitter) {
-        userIdToemitters.putIfAbsent(userId, new ArrayList<>());
+        userIdToemitters.putIfAbsent(userId, new CopyOnWriteArrayList<>());
         var emitters = userIdToemitters.get(userId);
 
         emitters.add(emitter);
@@ -56,6 +61,7 @@ public class NotificationService {
 
         notificationRepository.save(notification);
 
+
         var notificationResponse = new TopicInviteNotificationResponse();
         notificationResponse.setTopicName(topic.getName());
         notificationResponse.setTopicId(topic.getId());
@@ -70,20 +76,8 @@ public class NotificationService {
             throw new RuntimeException(e);
         }
 
+        eventPublisher.publishEvent(new NotificationEvent(this, serializedNotification, userId));
 
-        String finalSerializedNotification = serializedNotification;
-
-        Optional.ofNullable(userIdToemitters.get(userId)).ifPresent((emitters) -> {
-
-                for (SseEmitter emitter : emitters) {
-                    try {
-                        emitter.send(finalSerializedNotification);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-        });
 
         System.out.println("here");
     }
@@ -106,23 +100,15 @@ public class NotificationService {
         notification.setPostId(post.getId());
         notification.setTopicId(post.getTopic().getId());
         notification.setTopicName(post.getTopic().getName());
-        notification.setPostedBy(userService.mapToUserResponse(post.getCreatedBy()));
+        notification.setPostedBy(userMapper.mapToUserResponse(post.getCreatedBy()));
         notification.setTime(post.getCreatedOn());
         var notificationJson = objectMapper.writeValueAsString(notification);
 
         for (long id : userIds) {
-            Optional.ofNullable(userIdToemitters.get(id)).ifPresent(emitters -> {
-
-                    for (SseEmitter emitter : emitters) {
-                        try {
-                            emitter.send(notificationJson);
-                        } catch (IOException exception) {
-                            exception.printStackTrace();
-                        }
-                    };
-
-
-            });
+            eventPublisher.publishEvent(new NotificationEvent(this,
+                    notificationJson,
+                    id
+            ));
         }
     }
 

@@ -3,11 +3,10 @@ package com.project.collab_tool.service;
 
 import com.project.collab_tool.dto.UserResponse;
 import com.project.collab_tool.dto.UsersSearchRequest;
+import com.project.collab_tool.mappers.UserMapper;
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     public void addMemberToTeam(Long teamLeaderId, Long memberId) {
         var teamLeader = userRepository.findById(teamLeaderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -34,17 +34,17 @@ public class UserService {
     }
 
     public List<UserResponse> getUsers() {
-        return userRepository.findAll().stream().map(this::mapToUserResponse).toList();
+        return userRepository.findAll().stream().map(userMapper::mapToUserResponse).toList();
     }
 
     public List<UserResponse> getTeamMembers(Long teamLeaderId) {
         var teamLeader = findUserInfo(teamLeaderId);
-        return teamLeader.getTeam().stream().map(this::mapToUserResponse).toList();
+        return teamLeader.getTeam().stream().map(userMapper::mapToUserResponse).toList();
     }
 
     public UserResponse getUser(Long id) {
         var user = findUserInfo(id);
-        return mapToUserResponse(user);
+        return userMapper.mapToUserResponse(user);
     }
 
     public UserInfo getUserEntity(Long id) {
@@ -54,12 +54,12 @@ public class UserService {
     public List<UserResponse> searchByPrefix(String prefix) {
         return userRepository.findByFullNameOrEmailPrefix(prefix)
                 .stream()
-                .map(this::mapToUserResponse)
+                .map(userMapper::mapToUserResponse)
                 .toList();
     }
 
     public List<UserResponse> searchByPrefixed(UsersSearchRequest searchRequest) {
-        return userRepository.searchByPrefixed(searchRequest).stream().map(this::mapToUserResponse).toList();
+        return userRepository.searchByPrefixed(searchRequest).stream().map(userMapper::mapToUserResponse).toList();
     }
 
 
@@ -67,9 +67,5 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public UserResponse mapToUserResponse(UserInfo userInfo) {
-        UserResponse userResponse = new UserResponse();
-        BeanUtils.copyProperties(userInfo, userResponse);
-        return userResponse;
-    }
+
 }

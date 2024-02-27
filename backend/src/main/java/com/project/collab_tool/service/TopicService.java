@@ -5,6 +5,7 @@ import com.project.collab_tool.dto.TopicRequest;
 import com.project.collab_tool.dto.TopicResponse;
 import com.project.collab_tool.dto.UserResponse;
 import com.project.collab_tool.mappers.TopicMapper;
+import com.project.collab_tool.mappers.UserMapper;
 import com.project.collab_tool.model.Topic;
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.TopicRepository;
@@ -22,6 +23,7 @@ public class TopicService {
     private final UserService userService;
     private final NotificationService notificationService;
     private final TopicMapper topicMapper;
+    private final UserMapper userMapper;
 
 
     public TopicResponse createTopic(TopicRequest topicRequest, Long topicOwnerId) {
@@ -69,7 +71,7 @@ public class TopicService {
 
     public List<UserResponse> getMembers(Long id) {
         Topic topic = topicRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        List<UserResponse> users = topic.getMembers().stream().map(userService::mapToUserResponse).toList();
+        List<UserResponse> users = topic.getMembers().stream().map(userMapper::mapToUserResponse).toList();
         return users;
     }
 

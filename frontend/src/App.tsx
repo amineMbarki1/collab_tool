@@ -15,14 +15,16 @@ import "./styles/App.css";
 
 function App() {
   return (
-    <Provider store={store}>
-      <GoogleOAuthProvider clientId="403817981104-c7p383karn9jot2cl64rtupme8mdt2de.apps.googleusercontent.com">
-        <Router>
-          <AppRoutes />
-        </Router>
-        <ToastContainer position="bottom-center" />
-      </GoogleOAuthProvider>
-    </Provider>
+   
+      <Provider store={store}>
+        <GoogleOAuthProvider clientId="403817981104-c7p383karn9jot2cl64rtupme8mdt2de.apps.googleusercontent.com">
+          <Router>
+            <AppRoutes />
+          </Router>
+          <ToastContainer position="bottom-center" />
+        </GoogleOAuthProvider>
+      </Provider>
+    
   );
 }
 

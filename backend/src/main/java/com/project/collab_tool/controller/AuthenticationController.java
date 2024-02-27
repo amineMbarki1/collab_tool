@@ -4,7 +4,6 @@ package com.project.collab_tool.controller;
 import com.project.collab_tool.dto.LoginRequest;
 import com.project.collab_tool.dto.LoginResponse;
 import com.project.collab_tool.dto.SignupRequest;
-import com.project.collab_tool.dto.UserResponse;
 import com.project.collab_tool.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

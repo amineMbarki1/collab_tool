@@ -16,8 +16,6 @@ const store = configureStore({
     post: postsReducer,
     notification: notificationsReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(notificationsMiddleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

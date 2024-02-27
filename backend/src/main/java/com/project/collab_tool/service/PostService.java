@@ -3,11 +3,14 @@ package com.project.collab_tool.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.project.collab_tool.dto.PostRequest;
 import com.project.collab_tool.dto.PostResponse;
+import com.project.collab_tool.mappers.UserMapper;
 import com.project.collab_tool.model.Post;
 import com.project.collab_tool.model.Topic;
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,6 +24,8 @@ public class PostService {
     private final UserService userService;
     private final PostRepository postRepository;
     private final NotificationService notificationService;
+    private final UserMapper userMapper;
+
 
 
     public PostResponse createPost(PostRequest postRequest) throws JsonProcessingException {
@@ -57,7 +62,7 @@ public class PostService {
                 .topicId(post.getTopic().getId())
                 .id(post.getId())
                 .user(
-                        userService.mapToUserResponse(post.getCreatedBy()
+                        userMapper.mapToUserResponse(post.getCreatedBy()
                         )
 
                 ).build();

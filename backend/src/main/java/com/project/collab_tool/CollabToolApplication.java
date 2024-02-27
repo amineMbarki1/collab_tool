@@ -41,7 +41,7 @@ public class CollabToolApplication {
             userRepository.save(userInfo2);
             UserInfo userInfo3 = UserInfo.builder().firstName("salim").lastName("mbarki").email("amine3@gmail.com").password(passwordEncoder.encode("password")).build();
             userRepository.save(userInfo3);
-            Set<UserInfo> team = new HashSet<UserInfo>();
+            Set<UserInfo> team = new HashSet<>();
             team.add(userInfo2);
             team.add(userInfo3);
             userInfo.setTeam(team);

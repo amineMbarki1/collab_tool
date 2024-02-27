@@ -19,3 +19,5 @@ logging:
       springframework:
         web: debug
         security: debug
+
+firebase-service-account: logistics-dec71-firebase-adminsdk-50hnc-4b8fe72aa9.json

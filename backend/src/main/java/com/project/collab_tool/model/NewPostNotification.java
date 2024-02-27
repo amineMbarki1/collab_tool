@@ -12,5 +12,9 @@ import lombok.*;
 public class NewPostNotification extends Notification {
     @ManyToOne
     private Post post;
+
+
+
+
 }
 

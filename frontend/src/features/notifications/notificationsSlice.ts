@@ -3,7 +3,6 @@ import { createSlice, Middleware } from "@reduxjs/toolkit";
 
 import { NewPostNotification, Notification } from "./types";
 import { RootState } from "@/store";
-import { EventSourcePolyfill } from "event-source-polyfill";
 
 const BASE_URL = "http://localhost:8080/api/notifications";
 
@@ -13,13 +12,13 @@ export const notificationsSlice = createSlice({
   name: "notifications",
   initialState: initialState,
   reducers: {
-    received: (state, action) => {
+    receivedNotification: (state, action) => {
       state.push(action.payload);
     },
   },
 });
 
-const { received } = notificationsSlice.actions;
+export const { receivedNotification } = notificationsSlice.actions;
 
 export function connectAction(): ConnectAction {
   return { type: "notifications/connect" };
@@ -33,7 +32,7 @@ export default notificationsSlice.reducer;
 
 export const notificationsMiddleware: Middleware =
   (store) => (next) => (action) => {
-    let eventSource!: EventSourcePolyfill;
+    let eventSource!: EventSource;
 
     if (action.type === "notifications/connect") {
       const state = store.getState() as RootState;
@@ -41,7 +40,7 @@ export const notificationsMiddleware: Middleware =
       const userId = state.auth.user!.id;
       const token = state.auth.accessToken;
 
-      eventSource = new EventSourcePolyfill(`${BASE_URL}/${2}`);
+      eventSource = new EventSource(`${BASE_URL}/${2}`);
 
       eventSource.onmessage = (message) => {
         const notification = JSON.parse(message.data) as Notification;
