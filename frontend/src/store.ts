@@ -3,10 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./features/auth";
 import { teamReducer } from "./features/team";
 import { topicsReducer, postsReducer } from "./features/topics";
-import {
-  notificationsMiddleware,
-  notificationsReducer,
-} from "./features/notifications";
+import { notificationsReducer } from "./features/notifications";
+import { chatReducer } from "./features/chat";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +13,7 @@ const store = configureStore({
     topic: topicsReducer,
     post: postsReducer,
     notification: notificationsReducer,
+    chat: chatReducer,
   },
 });
 

@@ -14,16 +14,8 @@ import { NavLink } from "@/components/NavLink";
 import { Avatar } from "@/components/Avatar";
 import styles from "./TeamMembers.module.css";
 import EditTeamModal from "./EditTeam";
-import Skeleton from "react-loading-skeleton";
 import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
-
-const skeleton = (
-  <div className={styles.skeletonContainer}>
-    <Skeleton className={styles.circleSkeleton} circle />
-
-    <Skeleton containerClassName={styles.skeleton} count={2} />
-  </div>
-);
+import MemberSkeletonInline from "./MemberSkeletonInline";
 
 export default function Topics() {
   const { dispatch, useAppSelector } = useAppStore();
@@ -47,14 +39,14 @@ export default function Topics() {
         <SectionContent>
           {status === "loading" && (
             <>
-              {skeleton}
-              {skeleton}
-              {skeleton}
-              {skeleton}
-              {skeleton}
-              {skeleton}
-              {skeleton}
-              {skeleton}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
+              {<MemberSkeletonInline />}
             </>
           )}
 

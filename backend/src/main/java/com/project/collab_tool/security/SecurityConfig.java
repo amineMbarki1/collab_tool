@@ -144,12 +144,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
-            }
-        };
+        return username -> userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
     }
 
     @Bean

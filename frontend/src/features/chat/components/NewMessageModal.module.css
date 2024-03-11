@@ -1,0 +1,8 @@
+.member {
+  display: flex;
+  gap: var(--size-8);
+  align-items: center;
+}
+.searchInput {
+  margin-bottom: var(--size-8);
+}

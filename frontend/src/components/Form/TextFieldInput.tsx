@@ -34,7 +34,7 @@ const FieldInput = forwardRef(
       error,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const classNames = clsx({
       [textFieldInputSm]: size === "sm",
@@ -46,11 +46,15 @@ const FieldInput = forwardRef(
     return (
       <FieldWrapper className={wrapperClassName} label={label}>
         {type === "textarea" ? (
-          <textarea placeholder={placeholder} className={classNames} />
+          <textarea
+            ref={ref as Ref<HTMLTextAreaElement>}
+            placeholder={placeholder}
+            className={classNames}
+          />
         ) : (
           <input
             {...inputProps}
-            ref={ref}
+            ref={ref as Ref<HTMLInputElement>}
             placeholder={placeholder}
             className={classNames}
             type={type}

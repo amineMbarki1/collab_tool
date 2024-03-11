@@ -6,6 +6,7 @@ import useDarkTheme from "@/hooks/useDarkTheme";
 import styles from "./Sidebar.module.css";
 import useUrlHash from "@/hooks/useUrlHash";
 import { Notifications } from "@/features/notifications";
+import MessageIcon from "@/assets/icons/icon-message.svg?react";
 
 export default function Sidebar() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,11 +38,16 @@ export default function Sidebar() {
               <GroupIcon className={styles.icon} />
             </a>
           </li>
-          {/* <li title="messages">
-            <a className={styles.navLink} href="#messages">
+          <li title="messages">
+            <a
+              className={`${styles.navLink}  ${
+                hash === "#messages" ? styles.active : ""
+              }    `}
+              href="#messages"
+            >
               <MessageIcon className={styles.icon} />
             </a>
-          </li> */}
+          </li>
         </ul>
       </nav>
       <div className={styles.bottomMenu}>

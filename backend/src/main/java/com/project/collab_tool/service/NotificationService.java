@@ -78,8 +78,6 @@ public class NotificationService {
 
         eventPublisher.publishEvent(new NotificationEvent(this, serializedNotification, userId));
 
-
-        System.out.println("here");
     }
 
     @Async

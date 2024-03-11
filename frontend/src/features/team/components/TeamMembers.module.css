@@ -2,19 +2,6 @@
   min-width: var(--size-384);
   max-width: var(--size-384);
 }
-.skeletonContainer {
-  padding: var(--size-12) var(--size-16);
-  display: flex;
-  gap: var(--size-12);
-}
-.skeleton {
-  flex-grow: 1;
-}
-
-.circleSkeleton {
-  width: 40px;
-  height: 40px;
-}
 
 .postsList {
   margin-top: var(--size-16);

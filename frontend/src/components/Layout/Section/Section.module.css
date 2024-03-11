@@ -15,3 +15,6 @@
   height: var(--size-48);
   margin-bottom: var(--size-16);
 }
+.sectionFooter {
+  z-index: 1;
+}

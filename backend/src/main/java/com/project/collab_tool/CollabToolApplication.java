@@ -29,12 +29,12 @@ public class CollabToolApplication {
         SpringApplication.run(CollabToolApplication.class, args);
     }
 
+
+
     @Bean
     public CommandLineRunner myCommandLineRunner(PasswordEncoder passwordEncoder,
                                                  UserRepository userRepository){
         return args -> {
-
-
             UserInfo userInfo = UserInfo.builder().firstName("amine").lastName("mbarki").email("amine@gmail.com").password(passwordEncoder.encode("password")).build();
             userRepository.save(userInfo);
             UserInfo userInfo2 = UserInfo.builder().firstName("karim").lastName("mbarki").email("amine2@gmail.com").password(passwordEncoder.encode("password")).build();
@@ -46,17 +46,11 @@ public class CollabToolApplication {
             team.add(userInfo3);
             userInfo.setTeam(team);
             userRepository.save(userInfo);
-
             userRepository.findByFullNameOrEmailPrefix("a");
-
-
-
-
-
-
-
 
         };
     }
+
+
 
 }

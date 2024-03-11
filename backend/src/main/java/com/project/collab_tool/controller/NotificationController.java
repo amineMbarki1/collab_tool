@@ -58,7 +58,6 @@ public class NotificationController {
                 clients.remove(client);
             }
         }
-        System.out.printf("qsdfsd");
     }
 }
 
