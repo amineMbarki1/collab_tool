@@ -5,6 +5,7 @@ import { teamReducer } from "./features/team";
 import { topicsReducer, postsReducer } from "./features/topics";
 import { notificationsReducer } from "./features/notifications";
 import { chatReducer } from "./features/chat";
+import { sideSectionReducer } from "./components/Layout";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     post: postsReducer,
     notification: notificationsReducer,
     chat: chatReducer,
+    sidesection: sideSectionReducer,
   },
 });
 

@@ -1,6 +1,5 @@
 .teamSection {
-  min-width: var(--size-384);
-  max-width: var(--size-384);
+  width: var(--size-384);
 }
 
 .postsList {

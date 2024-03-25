@@ -24,12 +24,8 @@ public class CollabToolApplication {
     sudo docker run -itd -e POSTGRES_USER=amine -e POSTGRES_PASSWORD=amine -p 5432:5432 -v /home/emino/data:/var/lib/postgresql/data --name postgresql postgres
     * */
     public static void main(String[] args) {
-
-
         SpringApplication.run(CollabToolApplication.class, args);
     }
-
-
 
     @Bean
     public CommandLineRunner myCommandLineRunner(PasswordEncoder passwordEncoder,
@@ -47,7 +43,6 @@ public class CollabToolApplication {
             userInfo.setTeam(team);
             userRepository.save(userInfo);
             userRepository.findByFullNameOrEmailPrefix("a");
-
         };
     }
 

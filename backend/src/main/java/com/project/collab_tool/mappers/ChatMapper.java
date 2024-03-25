@@ -1,6 +1,7 @@
 package com.project.collab_tool.mappers;
 
 
+import com.project.collab_tool.dto.ChatMessageDirection;
 import com.project.collab_tool.dto.ChatMessageRequest;
 import com.project.collab_tool.dto.ChatMessageResponse;
 import com.project.collab_tool.model.ChatMessage;
@@ -15,11 +16,13 @@ public class ChatMapper {
         this.userMapper = userMapper;
     }
 
-    public ChatMessageResponse toChatResponse(ChatMessage message) {
+    public ChatMessageResponse toChatResponse(ChatMessage message, long authenticatedUserId) {
         var chatMessageResponse = new ChatMessageResponse();
         BeanUtils.copyProperties(message, chatMessageResponse);
-        chatMessageResponse.setReceiver(userMapper.mapToUserResponse(message.getReceiver()));
-        chatMessageResponse.setSender(userMapper.mapToUserResponse(message.getSender()));
+        chatMessageResponse.setDirection(
+                authenticatedUserId == message.getSender().getId() ?
+                        ChatMessageDirection.SENT : ChatMessageDirection.RECEIVED
+        );
         return chatMessageResponse;
     }
 

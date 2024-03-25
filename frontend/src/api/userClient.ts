@@ -1,6 +1,8 @@
 import { SearchUsersRequest, User } from "@/types";
 import httpClient from "./Httpclient";
 
+
+
 export async function getTeam() {
   const { data } = await httpClient.get<User[]>("/users/me/team-members");
   return data;
@@ -31,6 +33,12 @@ export async function searchUsers(searchRequest: SearchUsersRequest) {
     `/users/search`,
     searchRequest
   );
+
+  return data;
+}
+
+export async function getUserById(id: number) {
+  const { data } = await httpClient.get<User>(`/users/${id}`);
 
   return data;
 }

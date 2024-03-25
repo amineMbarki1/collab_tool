@@ -21,3 +21,21 @@
 .topicsList {
   margin-top: var(--size-16);
 }
+
+
+
+/* @media (max-width: 1000px) {
+  .topicsSection {
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    left: var(--width-sidebar);
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 0;
+    padding: 0;
+    background-color: var(--color-main-background);
+    transition: width 0.2s ease-in-out, padding 0.2s ease;
+  }
+} */

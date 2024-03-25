@@ -18,4 +18,7 @@ public class ChatMessage {
     private UserInfo sender;
     @ManyToOne
     private UserInfo receiver;
+
+
+
 }

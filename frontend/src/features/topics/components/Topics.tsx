@@ -6,10 +6,10 @@ import { TextFieldInput } from "@/components/Form";
 import { Button } from "@/components/Button";
 import NewTopicModal from "./NewTopicModal";
 import {
-  Section,
   SectionContent,
   SectionFooter,
   SectionHeader,
+  Sidesection,
 } from "@/components/Layout";
 import { NavLink } from "@/components/NavLink";
 import { useAppStore } from "@/hooks";
@@ -36,7 +36,7 @@ export default function Topics() {
           onClose={() => setIsNewTopicModalOpen(false)}
         />
       )}
-      <Section className={styles.topicsSection}>
+      <Sidesection className={styles.topicsSection}>
         <SectionHeader>
           <h1>Topics</h1>
         </SectionHeader>
@@ -69,7 +69,7 @@ export default function Topics() {
             New topic
           </Button>
         </SectionFooter>
-      </Section>
+      </Sidesection>
     </>
   );
 }

@@ -56,12 +56,15 @@ public class UserController {
         return ResponseEntity.ok("Removed member successfully");
     }
 
-
     @GetMapping("/me/team-members")
     public List<UserResponse> getTeamMembers(JwtAuthenticationToken authentication) {
         UserInfo userInfo = (UserInfo) authentication.getDetails();
         return userService.getTeamMembers(userInfo.getId());
     }
 
+    @GetMapping("/{id}")
+    public UserResponse getUserId(@PathVariable long id) {
+        return userService.getUser(id);
+    }
 
 }

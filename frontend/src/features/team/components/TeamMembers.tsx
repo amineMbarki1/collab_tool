@@ -8,6 +8,7 @@ import {
   SectionContent,
   SectionFooter,
   SectionHeader,
+  Sidesection,
 } from "@/components/Layout";
 import { useAppStore } from "@/hooks";
 import { NavLink } from "@/components/NavLink";
@@ -30,7 +31,7 @@ export default function Topics() {
         isOpen={isAddMembersModalOpen}
         onClose={() => setIsAddMembersModalOpen(false)}
       />
-      <Section className={styles.teamSection}>
+      <Sidesection className={styles.teamSection}>
         <SectionHeader>
           <h1>Team</h1>
         </SectionHeader>
@@ -82,7 +83,7 @@ export default function Topics() {
             EDIT TEAM
           </Button>
         </SectionFooter>
-      </Section>
+      </Sidesection>
     </>
   );
 }

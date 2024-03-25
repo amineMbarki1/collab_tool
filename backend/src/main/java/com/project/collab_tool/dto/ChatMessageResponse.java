@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class ChatMessageResponse {
     private String body;
-    private UserResponse sender;
-    private UserResponse receiver;
+    private ChatMessageDirection direction;
+
 }
+

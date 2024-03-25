@@ -33,9 +33,15 @@
 }
 
 .bottomMenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: auto;
-    gap: var(--size-24)
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  gap: var(--size-24);
+}
+
+@media (min-width: 1200px) {
+  .menuItem {
+    display: none;
+  }
 }

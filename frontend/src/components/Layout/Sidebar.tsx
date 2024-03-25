@@ -1,3 +1,5 @@
+import { useAppStore } from "@/hooks";
+
 import { Avatar } from "@/components/Avatar";
 import HomeIcon from "@/assets/icons/icon-home.svg?react";
 import LightModeIcon from "@/assets/icons/icon-light-mode.svg?react";
@@ -7,16 +9,32 @@ import styles from "./Sidebar.module.css";
 import useUrlHash from "@/hooks/useUrlHash";
 import { Notifications } from "@/features/notifications";
 import MessageIcon from "@/assets/icons/icon-message.svg?react";
+import MenuICon from "@/assets/icons/icon-menu.svg?react";
+import { toggleSidesection } from ".";
 
 export default function Sidebar() {
+  const { dispatch, useAppSelector } = useAppStore();
+  const { showSidesection } = useAppSelector((state) => state.sidesection);
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setIsEnabled] = useDarkTheme();
-  const hash = useUrlHash() as "#team" | "";
+  const hash = useUrlHash();
 
   return (
     <div className={styles.sidebar}>
       <nav>
         <ul>
+          <li className={styles.menuItem} title="topics">
+            <a
+              onClick={() => dispatch(toggleSidesection())}
+              className={`${styles.navLink} ${
+                showSidesection ? styles.active : ""
+              }`}
+              
+            >
+              <MenuICon className={styles.icon} />
+            </a>
+          </li>
           <li title="topics">
             <a
               className={`${styles.navLink} ${

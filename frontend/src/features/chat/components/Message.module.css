@@ -3,29 +3,17 @@
   gap: var(--size-16);
   position: relative;
   margin-bottom: var(--size-16);
-
-  
 }
 
 .messageContainer {
   border: 0;
 }
 
-.messageContainer::before {
-  content: "";
-  position: absolute;
-  bottom: 10px;
-  left: 38px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 0 0 20px 20px;
-  border-color: transparent transparent var(--color-main-foreground) transparent;
-}
+
 
 .avatar {
   flex-shrink: 0;
-  align-self: flex-end;
+  width: var(--size-32)
 }
 
 .messageBodyWrapper {
@@ -35,7 +23,9 @@
 }
 
 .messageBody {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.1rem;
+  white-space: pre-line;
 }
 
 .statusWrapper {

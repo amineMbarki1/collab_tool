@@ -30,6 +30,10 @@ const initialState: TeamState = {
 const teamSlice = createSlice({
   name: "team",
   initialState,
+  selectors: {
+    selectTeamMemberById: (state, memberId: number) =>
+      state.members.find(({ id }) => id === memberId),
+  },
   reducers: {
     resetSearchedUsers: (state) => {
       state.searchUsersStatus = "idle";
@@ -112,6 +116,7 @@ export const removeMemberAction = createAsyncThunk(
 );
 
 export const { resetSearchedUsers } = teamSlice.actions;
+export const teamMembersSelectors = teamSlice.selectors;
 
 export default teamSlice.reducer;
 

@@ -7,6 +7,9 @@ import com.project.collab_tool.dto.TopicResponse;
 import com.project.collab_tool.dto.UserResponse;
 import com.project.collab_tool.model.UserInfo;
 import com.project.collab_tool.service.TopicService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,16 @@ public class TopicController {
     }
 
     @PostMapping("/{id}/members")
+    @Operation(
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = {
+                                    @Content(mediaType = "Application/Json")
+                            }
+                    )
+            }
+    )
     public ResponseEntity<String> addMember(JwtAuthenticationToken jwtAuthenticationToken, @RequestBody MemberRequest memberRequest, @PathVariable Long id) {
         UserInfo topicOwner = (UserInfo) jwtAuthenticationToken.getDetails();
         topicService.addMember(memberRequest.getId(), id, topicOwner.getId());

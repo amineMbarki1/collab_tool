@@ -39,7 +39,6 @@
   width: 100%;
 }
 
-
 .timeline {
   display: flex;
   position: relative;
@@ -52,16 +51,13 @@
   background-color: var(--color-primary);
   opacity: 0.4;
   position: absolute;
-  top:0;
+  top: 0;
   left: 178px;
   height: 100%;
-
 }
-  
+
 .postWrapper {
-   display: flex;
-   
-  
+  display: flex;
 }
 .postWrapper:not(:first-child) {
   margin-top: var(--size-32);
@@ -87,4 +83,29 @@
 .postedAt {
   font-weight: bold;
   display: block;
+}
+
+@media (max-width: 1000px) {
+  .postedOn {
+    width: fit-content;
+  }
+  .circle {
+    left: 0;
+  }
+
+  .timeline::before {
+    left: 57px;
+  }
+}
+
+@media (max-width: 700px) {
+  .timeline::before {
+    display: none;
+  }
+  .circle {
+    display: none;
+  }
+  .postedOn {
+    display: none;
+  }
 }

@@ -2,7 +2,7 @@ import { Topic } from "@/features/topics";
 import { Route, Routes } from "react-router-dom";
 
 import { useUrlHash } from "@/hooks";
-import { MainLayout, Sidebar } from "@/components/Layout";
+import { MainContent, MainLayout, Sidebar } from "@/components/Layout";
 import { TeamMembers as TeamMembersSection } from "@/features/team";
 import { Topics as TopicsSection } from "@/features/topics";
 import { MessagesSection } from "@/features/chat";
@@ -17,7 +17,7 @@ export default function ProtectedRoutes() {
     <Test>
       <MainLayout>
         <Sidebar />
-        <main style={{ flex: 1, display: "flex" }}>
+        <MainContent>
           {hash === "#team" ? (
             <TeamMembersSection />
           ) : hash === "#messages" ? (
@@ -30,7 +30,7 @@ export default function ProtectedRoutes() {
             <Route path="/topics/:id" element={<Topic />} />
             <Route path="/chat/:id" element={<Chat />} />
           </Routes>
-        </main>
+        </MainContent>
       </MainLayout>
     </Test>
   );

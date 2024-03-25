@@ -24,7 +24,11 @@ export default function TopicDetailsModal({ topic, ...props }: Props) {
 
   return (
     <Modal {...props}>
-      <ModalHeader className={styles.header} title={"#" + topic.name}>
+      <ModalHeader
+        className={styles.header}
+        title={"#" + topic.name}
+        onCLose={props.onClose}
+      >
         <button
           onClick={() => setOpenTab("details")}
           className={`${styles.tab} ${
@@ -46,12 +50,14 @@ export default function TopicDetailsModal({ topic, ...props }: Props) {
         {openTab === "details" && <TopicDetails topic={topic} />}
 
         {openTab === "members" && <TopicMembers topic={topic} />}
-
-        
       </ModalContent>
       <ModalFooter className={styles.footer}>
-        <Button className={styles.deleteButton} color="accent">DELETE</Button>
-        <Button variant="outline" color="primary">SAVE</Button>
+        <Button className={styles.deleteButton} color="accent">
+          DELETE
+        </Button>
+        <Button variant="outline" color="primary">
+          SAVE
+        </Button>
       </ModalFooter>
     </Modal>
   );
