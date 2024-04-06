@@ -18,10 +18,8 @@ public class TopicInviteNotificationResponse extends NotificationResponse {
         this.topicName = notification.getTopic().getName();
         this.topicId = notification.getTopic().getId();
         this.topicOwnerName = notification.getTopic().getCreatedBy().getFullName();
-
         this.setCreatedOn(notification.getCreatedOn());
         this.setTime(notification.getTime());
         this.setLastUpdatedOn(notification.getLastUpdatedOn());
-
     }
 }

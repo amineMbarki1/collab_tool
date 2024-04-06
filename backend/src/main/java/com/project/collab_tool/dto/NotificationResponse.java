@@ -13,8 +13,7 @@ public class NotificationResponse {
     private Instant time;
     private Instant createdOn;
     private Instant lastUpdatedOn;
-
-
+    private boolean read;
 
 }
 

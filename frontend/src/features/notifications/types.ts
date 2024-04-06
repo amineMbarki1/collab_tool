@@ -13,6 +13,8 @@ export interface TopicInviteNotification {
   type: "topicInvite";
   topicName: string;
   topicOwnerName: string;
+  topicId:number;
+  time: Date;
 }
 
 export type Notification = TopicInviteNotification | NewPostNotification;

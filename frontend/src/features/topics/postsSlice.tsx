@@ -29,6 +29,10 @@ const postsSlice = createSlice({
   reducers: {},
   name: "post",
   initialState,
+  selectors: {
+    selectPostById: (state, id: number) =>
+      state.posts.find((post) => post.id === id),
+  },
   extraReducers(builder) {
     builder.addCase(createPostAction.pending, (state) => {
       state.createPostStatus = "loading";
@@ -71,5 +75,7 @@ export const getAllPostsAction = createAsyncThunk(
 export function selectPostsByTopicId(state: RootState, topicId: number) {
   return state.post.posts.filter((post) => post.topicId === topicId);
 }
+
+export const { selectPostById } = postsSlice.selectors;
 
 export default postsSlice.reducer;

@@ -47,6 +47,7 @@ export default function Topics() {
           {topics.length === 0 && getTopicsStatus === "succeeded" && (
             <EmptyDataIndicator message="No topics yet" />
           )}
+          {/* <h4 style={{borderBottom: "2px  solid rgba(0,0,0, 0.1)", fontWeight: "normal", marginTop: 14}}>My Topics</h4> */}
           <ul className={styles.topicsList}>
             {getTopicsStatus === "loading" && renderTopicsLoader()}
             {topics.map((topic) => (
@@ -59,6 +60,8 @@ export default function Topics() {
               </li>
             ))}
           </ul>
+          {/* <h4 style={{borderBottom: "2px  solid rgba(0,0,0, 0.1)", fontWeight: "normal", marginTop: 14}}>Subscribed Topics</h4> */}
+
         </SectionContent>
         <SectionFooter>
           <Button

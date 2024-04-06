@@ -6,3 +6,20 @@
 .inputWrapper {
   flex: 1;
 }
+
+.emojiButton {
+  cursor: pointer;
+  background: none;
+  
+
+}
+
+.emojiButton svg {
+  fill: var(--color-icon);
+}
+
+.emojiPicker {
+  position:  absolute !important;
+  bottom: 36px;
+  right: 0;
+}

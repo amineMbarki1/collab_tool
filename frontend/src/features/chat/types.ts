@@ -1,4 +1,4 @@
-import { Status } from "@/types";
+import { Status, User } from "@/types";
 
 export interface ChatMessage {
   body: string;
@@ -16,4 +16,8 @@ export interface RecentMessages {
   partnerFullName: string;
   partnerId: number;
   lastMessage: string;
+}
+
+export interface ReceivedMessage extends ChatMessage {
+  from: User;
 }

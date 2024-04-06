@@ -1,20 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, Middleware } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { NewPostNotification, Notification } from "./types";
-import { RootState } from "@/store";
+import { Status } from "@/types";
+import { getNotifications } from "@/api/notificationClient";
 
-const BASE_URL = "http://localhost:8080/api/notifications";
-
-const initialState: Notification[] = [];
+const initialState = { notifications: [], getNotificationsStatus: "idle" } as {
+  notifications: Notification[];
+  getNotificationsStatus: Status;
+};
 
 export const notificationsSlice = createSlice({
   name: "notifications",
   initialState: initialState,
   reducers: {
     receivedNotification: (state, action) => {
-      state.push(action.payload);
+      state.notifications.push(action.payload);
     },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(getNotificationsAction.fulfilled, (state, action) => {
+      if (state.getNotificationsStatus === "idle") {
+        state.notifications = action.payload.map((notification) => {
+          if (isNewPostNotification(notification))
+            return { ...notification, type: "newPost" };
+          else return { ...notification, type: "topicInvite" };
+        });
+        state.getNotificationsStatus = "succeeded";
+      }
+    });
   },
 });
 
@@ -30,35 +45,6 @@ export function disconnectAction(): DisconnectAction {
 
 export default notificationsSlice.reducer;
 
-export const notificationsMiddleware: Middleware =
-  (store) => (next) => (action) => {
-    let eventSource!: EventSource;
-
-    if (action.type === "notifications/connect") {
-      const state = store.getState() as RootState;
-     //TODO: Change these when done testing
-      const userId = state.auth.user!.id;
-      const token = state.auth.accessToken;
-
-      eventSource = new EventSource(`${BASE_URL}/${2}`);
-
-      eventSource.onmessage = (message) => {
-        const notification = JSON.parse(message.data) as Notification;
-
-        if (isNewPostNotification(notification)) notification.type = "newPost";
-        else notification.type = "topicInvite";
-
-        store.dispatch(received(notification));
-      };
-    }
-
-    if (action.type === "notifications/disconnect") {
-      if (eventSource != undefined) eventSource.close();
-    }
-
-    next(action);
-  };
-
 interface ConnectAction {
   type: "notifications/connect";
 }
@@ -67,7 +53,15 @@ interface DisconnectAction {
   type: "notifications/disconnect";
 }
 
-type Action = DisconnectAction | ConnectAction;
+export const getNotificationsAction = createAsyncThunk(
+  "notifications/get",
+  getNotifications
+);
+// function isNewPostNotification(
+//   notification: Notification
+// ): notification is NewPostNotification {
+//   return (notification as NewPostNotification).postId !== undefined;
+// }
 
 function isNewPostNotification(
   notification: Notification

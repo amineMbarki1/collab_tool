@@ -4,6 +4,7 @@ package com.project.collab_tool.mappers;
 import com.project.collab_tool.dto.ChatMessageDirection;
 import com.project.collab_tool.dto.ChatMessageRequest;
 import com.project.collab_tool.dto.ChatMessageResponse;
+import com.project.collab_tool.dto.RedisChatResponse;
 import com.project.collab_tool.model.ChatMessage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,13 @@ public class ChatMapper {
         var chatMessage = new ChatMessage();
         BeanUtils.copyProperties(message, chatMessage);
         return chatMessage;
+    }
+
+    public RedisChatResponse toRedisChatResponse(ChatMessage chatMessage) {
+        var from = userMapper.mapToUserResponse(chatMessage.getSender());
+        var response = new RedisChatResponse();
+        response.setFrom(from);
+        response.setBody(chatMessage.getBody());
+        return response;
     }
 }

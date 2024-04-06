@@ -53,7 +53,7 @@ export default function EditTeam(props: ModalProps) {
 
   return (
     <Modal {...props} onClose={handleClose}>
-      <ModalHeader title="Add members" />
+      <ModalHeader title="Add members" onCLose={props.onClose} />
       <ModalContent className={styles.content}>
         <div
           className={styles.header}

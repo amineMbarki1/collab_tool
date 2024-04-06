@@ -3,29 +3,22 @@ import { Notification, NewPostNotification } from "../types";
 
 import { useAppStore } from "@/hooks";
 import { receivedNotification } from "../notificationsSlice";
+import { receivedMessage } from "@/features/chat";
+import { ReceivedMessage as ReceivedMessageType } from "@/features/chat/types";
 
 const BASE_URL = "http://localhost:8080/api/notifications";
 
 export default function Test({ children }: { children: ReactNode }) {
-  const { dispatch } = useAppStore();
+  const { dispatch, useAppSelector } = useAppStore();
+
+  const id = useAppSelector((state) => state.auth.user?.id);
 
   useEffect(() => {
-    const eventSource: EventSource = new EventSource(`${BASE_URL}/${2}`);
+    const eventSource: EventSource = new EventSource(`${BASE_URL}/${id!}`);
 
-    // //TODO: Change these when done testing
-    // const userId = state.auth.user!.id;
-    // const token = state.auth.accessToken;
-
-    eventSource.onmessage = (message) => {
-      //   const notification = JSON.parse(message.data) as Notification;
-
-      console.log("=========", message);
-
-      //   if (isNewPostNotification(notification)) notification.type = "newPost";
-      //   else notification.type = "topicInvite";
-
-      //   dispatch(receivedNotification(notification));
-    };
+    // eventSource.onmessage = (message) => {
+    //   console.log("=========", message);
+    // };
     eventSource.addEventListener("notification", (e) => {
       const notification = JSON.parse(e.data) as Notification;
       if (isNewPostNotification(notification)) notification.type = "newPost";
@@ -33,8 +26,13 @@ export default function Test({ children }: { children: ReactNode }) {
       dispatch(receivedNotification(notification));
     });
 
+    eventSource.addEventListener("NEW_MESSAGE", (e) => {
+      const message: ReceivedMessageType = { ...JSON.parse(e.data), direction: "RECEIVED" };
+      dispatch(receivedMessage(message));
+    });
+
     return () => eventSource.close();
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return children;
 }

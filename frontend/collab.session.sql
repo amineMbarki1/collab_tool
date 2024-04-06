@@ -56,9 +56,9 @@ FROM user_info
             )
             JOIN chat_message c ON last_id = c.id
     ) ON partner_id = user_info.id;
-
-
-SELECT CONCAT(first_name, ' ' ,last_name) as full_name, partner_id, body
+SELECT CONCAT(first_name, ' ', last_name) as full_name,
+    partner_id,
+    body
 FROM user_info
     JOIN (
         SELECT body,
@@ -78,9 +78,6 @@ FROM user_info
             )
             JOIN chat_message c ON last_id = c.id
     ) ON partner_id = user_info.id;
-
-
-
 SELECT max(id) as last_id,
     CASE
         WHEN sender_id = 2 THEN receiver_id
@@ -92,3 +89,18 @@ WHERE (
         or receiver_id = 2
     )
 GROUP BY partner_id
+SELECT c
+FROM ChatMessage c
+WHERE c.sender.id IN :chatPartnersId
+    AND c.receiver.id IN :chatPartnersId;
+
+SELECT *
+from chat_message
+where sender_id IN (1, 2)
+    AND receiver_id IN (1, 2)
+    AND sender_id != receiver_id;
+
+SELECT * 
+FROM user_team
+JOIN user_info ON user_info.id = user_team.user_id
+WHERE member_id = 3;

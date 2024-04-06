@@ -38,7 +38,6 @@ public class NotificationService {
     public void addEmitter(Long userId, SseEmitter emitter) {
         userIdToemitters.putIfAbsent(userId, new CopyOnWriteArrayList<>());
         var emitters = userIdToemitters.get(userId);
-
         emitters.add(emitter);
     }
 
@@ -47,7 +46,7 @@ public class NotificationService {
     }
 
     public List<Notification> getNotifications(UserInfo userInfo) {
-        return notificationRepository.findAll();
+        return notificationRepository.findAllByUser(userInfo);
     }
 
     @Async

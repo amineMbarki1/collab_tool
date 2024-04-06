@@ -1,10 +1,9 @@
 package com.project.collab_tool.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.collab_tool.mappers.UserMapper;
 import com.project.collab_tool.model.NewPostNotification;
 import lombok.*;
-import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 
 
@@ -17,12 +16,20 @@ public class NewPostNotificationResponse extends NotificationResponse {
     private String topicName;
     private UserResponse postedBy;
     private Instant time;
-    private UserMapper userMapper;
+
+    @JsonIgnore
+    private UserMapper userMapper = new UserMapper();
     
 
 
     public NewPostNotificationResponse(NewPostNotification newPostNotification) {
         this.postedBy = userMapper.mapToUserResponse( newPostNotification.getPost().getCreatedBy());
-        //TODO: FINISH CONSTRUCTOR
+        this.postId = newPostNotification.getPost().getId();
+        this.topicId = newPostNotification.getPost().getTopic().getId();
+        this.time = newPostNotification.getTime();
+        this.topicName = newPostNotification.getPost().getTopic().getName();
+        this.setCreatedOn(this.getCreatedOn());
+        this.setLastUpdatedOn(this.getLastUpdatedOn());
+        this.setRead(newPostNotification.isRead());
     }
 }

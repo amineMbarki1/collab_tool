@@ -14,7 +14,7 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
     @Query("SELECT c FROM ChatMessage c WHERE c.sender.id = :userId OR c.receiver.id = :userId")
     List<ChatMessage> findByUserId(long userId);
 
-    @Query("SELECT c FROM ChatMessage c WHERE c.sender.id IN :chatPartnersId AND c.receiver.id IN :chatPartnersId")
+    @Query("SELECT c FROM ChatMessage c WHERE c.sender.id IN :chatPartnersId AND c.receiver.id IN :chatPartnersId AND c.sender.id != c.receiver.id")
     List<ChatMessage> findConversationBetween(List<Long> chatPartnersId);
 
 

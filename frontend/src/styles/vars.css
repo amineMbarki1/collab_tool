@@ -43,7 +43,7 @@
   --size-16: 1rem;
   --size-24: 1.5rem;
   --size-32: 2rem;
-  --size-40:2.5rem;
+  --size-40: 2.5rem;
   --size-48: 3rem;
   --size-64: 4rem;
   --size-96: 6rem;
@@ -56,8 +56,8 @@
   --size-768: 48rem;
 
   --padding-card-body: var(--size-8) var(--size-12);
-
   --width-sidebar: var(--size-64);
+  --color-message-background: #fff;
 }
 
 html[data-theme="dark"] {
@@ -66,5 +66,5 @@ html[data-theme="dark"] {
   --color-main-text: var(--color-white);
   --color-secondary-text: #8a8f97;
   --color-border: #3b3b3d;
-  
+  --color-message-background: #404355;
 }

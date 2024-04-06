@@ -39,7 +39,7 @@ export default function NewTopicModal(props: ModalProps) {
 
   return (
     <Modal {...props}>
-      <ModalHeader title="New topic" />
+      <ModalHeader onCLose={props.onClose} title="New topic" />
       <ModalContent>
         {newTopic ? (
           <>

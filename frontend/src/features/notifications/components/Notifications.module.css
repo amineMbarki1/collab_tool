@@ -39,3 +39,12 @@
 .container {
   border: 0px;
 }
+
+.empty {
+  padding:1rem 2rem;
+  width: 450px;
+}
+.empty img {
+  width: 180px;
+  
+}

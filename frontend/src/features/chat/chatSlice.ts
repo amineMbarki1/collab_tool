@@ -1,9 +1,14 @@
 import {
+  PayloadAction,
   SerializedError,
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
-import { ChatMessage, RecentMessages } from "./types";
+import {
+  ChatMessage,
+  ReceivedMessage as ReceivedMessageType,
+  RecentMessages,
+} from "./types";
 import {
   createMessage,
   getMessages,
@@ -14,7 +19,7 @@ import { getUserById } from "@/api/userClient";
 import serializeAxiosError from "@/utils/serializeAxiosError";
 
 type ChatPartnerId = number;
-type ChatMessageState = ChatMessage & { requestId: string };
+type ChatMessageState = ChatMessage & { requestId?: string };
 
 interface ChatState {
   messages: Record<ChatPartnerId, ChatMessageState[]>;
@@ -39,7 +44,29 @@ const initialState: ChatState = {
 const slice = createSlice({
   name: "chat",
   initialState,
-  reducers: {},
+  reducers: {
+    receivedMessage: (state, action: PayloadAction<ReceivedMessageType>) => {
+      if (state.messages[action.payload.from.id])
+        state.messages[action.payload.from.id].push({
+          body: action.payload.body,
+          direction: action.payload.direction,
+        });
+      else
+        state.messages[action.payload.from.id] = [
+          {
+            body: action.payload.body,
+            direction: action.payload.direction,
+          },
+        ];
+
+      state.chatPartners.push(action.payload.from);
+      state.recentMessages.push({
+        lastMessage: action.payload.body,
+        partnerFullName: `${action.payload.from.firstName} ${action.payload.from.lastName}`,
+        partnerId: action.payload.from.id,
+      });
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(createMessageAction.pending, (state, action) => {
@@ -59,10 +86,25 @@ const slice = createSlice({
 
     builder.addCase(createMessageAction.fulfilled, (state, action) => {
       const chatPartnerId: ChatPartnerId = action.meta.arg.receiverId;
+      const chatPartner = state.chatPartners.find(
+        ({ id }) => id === chatPartnerId
+      );
+
       const message = state.messages[chatPartnerId].find(
         ({ requestId }) => requestId === action.meta.requestId
       );
       message!.status = "succeeded";
+
+      const recentMessage = state.recentMessages.find(
+        ({ partnerId }) => chatPartnerId === partnerId
+      );
+      if (recentMessage) recentMessage.lastMessage = action.meta.arg.body;
+      else
+        state.recentMessages.push({
+          lastMessage: action.meta.arg.body,
+          partnerId: chatPartnerId,
+          partnerFullName: chatPartner!.firstName + " " + chatPartner!.lastName,
+        });
     });
 
     builder.addCase(createMessageAction.rejected, (state, action) => {
@@ -113,6 +155,8 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
+
+export const { receivedMessage } = slice.actions;
 
 export const createMessageAction = createAsyncThunk(
   "chat/send",

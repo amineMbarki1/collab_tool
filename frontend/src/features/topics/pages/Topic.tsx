@@ -1,4 +1,3 @@
-
 /*
 A bug here "isToday(new Date("1994-12-04")"
 if the month name too long overlaps the timeline
@@ -17,7 +16,7 @@ import {
   SectionFooter,
   SectionHeader,
 } from "@/components/Layout";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { useAppStore } from "@/hooks";
 import { selectTopicById } from "../topicsSlice";
 import { getAllPostsAction, selectPostsByTopicId } from "../postsSlice";
@@ -26,6 +25,9 @@ import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
 import isToday from "@/utils/isToday";
 
 import styles from "./Topic.module.css";
+import timeAgo from "@/utils/timeAgo";
+import PostModal from "../components/Post/PostModal";
+import { Post as PostType } from "../types";
 
 export default function Topic() {
   const { useAppSelector, dispatch } = useAppStore();
@@ -38,6 +40,8 @@ export default function Topic() {
     selectPostsByTopicId(state, parseInt(id!))
   );
 
+ 
+
   const { getPostsStatus } = useAppSelector((state) => state.post);
 
   const [isTopicDetailsOpen, setIsTopicDetailsOpen] = useState(false);
@@ -49,6 +53,7 @@ export default function Topic() {
   return (
     topic && (
       <>
+        <Outlet />
         {isTopicDetailsOpen && (
           <TopicDetails
             topic={topic}
@@ -78,9 +83,18 @@ export default function Topic() {
                     <div key={post.id} className={styles.postWrapper}>
                       <span className={styles.postedOn}>
                         <small className={styles.postedAt}>
-                          {isToday(new Date(post.createdOn))}
+                          {isToday(new Date(post.createdOn))
+                            ? "TODAY"
+                            : timeAgo.format(
+                                new Date(post.createdOn),
+                                "twitter"
+                              )}
                         </small>
-                        7:24
+                        {`${formatTime(
+                          new Date(post.createdOn).getHours()
+                        )}:${formatTime(
+                          new Date(post.createdOn).getMinutes()
+                        )}`}
                       </span>
                       <div className={styles.circle}></div>
                       <Post post={post} key={post.id} />
@@ -99,3 +113,6 @@ export default function Topic() {
   );
 }
 
+function formatTime(time: number) {
+  return `${time}`.length === 1 ? `0${time}` : `${time}`;
+}

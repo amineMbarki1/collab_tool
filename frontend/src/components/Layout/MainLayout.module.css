@@ -1,5 +1,10 @@
 .mainLayout {
   height: 100vh;
-  border: 1px solid black;
   display: flex;
+}
+
+@media (max-width: 600px) {
+  .mainLayout {
+    flex-direction: column;
+  }
 }

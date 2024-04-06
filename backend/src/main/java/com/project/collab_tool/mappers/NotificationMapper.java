@@ -12,7 +12,8 @@ public class NotificationMapper {
 
     public NotificationResponse mapToNotificationResponse(Notification notification) {
         if (notification instanceof NewPostNotification) {
-            return new NewPostNotificationResponse();
+            return new NewPostNotificationResponse((NewPostNotification) notification);
+
         }
 
         if (notification instanceof TopicInviteNotification) {

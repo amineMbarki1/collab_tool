@@ -9,6 +9,7 @@ import { MessagesSection } from "@/features/chat";
 import Test from "@/features/notifications/components/Test";
 
 import Chat from "@/features/chat/pages/Chat";
+import PostModal from "@/features/topics/components/Post/PostModal";
 
 export default function ProtectedRoutes() {
   const hash = useUrlHash();
@@ -27,7 +28,9 @@ export default function ProtectedRoutes() {
           )}
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/topics/:id" element={<Topic />} />
+            <Route path="/topics/:id" element={<Topic />}>
+              <Route path="post/:postId" element={<PostModal isOpen  />} />
+            </Route>
             <Route path="/chat/:id" element={<Chat />} />
           </Routes>
         </MainContent>

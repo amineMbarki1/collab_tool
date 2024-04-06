@@ -1,17 +1,23 @@
 .iconButton {
-    background-color: transparent;
-    height: var(--size-32);
-    width: var(--size-32);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    fill: var(--color-main-text);
-    transition: background-color  0.3s ease-in-out, fill 0.3s ease-in-out;
+  background-color: transparent;
+  height: var(--size-32);
+  width: var(--size-32);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
 }
 
+.iconButton svg {
+  fill: var(--color-main-text);
+  transition: fill 0.3s ease-in-out;
+}
 .iconButton:hover {
-    background-color: var(--color-primary-50);
-    fill:  var(--color-dark);;
+  background-color: var(--color-primary-50);
+}
+
+.iconButton:hover svg {
+  fill: var(--color-dark);
 }

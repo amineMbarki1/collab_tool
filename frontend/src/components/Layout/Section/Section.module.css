@@ -20,8 +20,6 @@
   z-index: 1;
 }
 
-
-
 @media (max-width: 1200px) {
   .sidesection {
     overflow: hidden;
@@ -32,12 +30,25 @@
     height: 100%;
     overflow: hidden;
     background-color: var(--color-main-background);
-    transition: width 0.5s, padding 0.2s;
+    transition: left 0.5s;
   }
 
   .sidesection.hide {
-    width: 0 !important;
-    padding: 0;
+    left: -400px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidesection {
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+    height: calc(100vh - var(--size-54));
+    overflow: hidden;
+    background-color: var(--color-main-background);
+    transition: left 0.5s;
   }
 }
 

@@ -31,7 +31,8 @@ public class Topic {
     @ManyToMany
     @JoinTable(
             name = "topic_members",
-            joinColumns = @JoinColumn(name = "topic_id")
+            joinColumns = @JoinColumn(name = "topic_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id")
     )
     private Set<UserInfo> members = new HashSet<>();
 

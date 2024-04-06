@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import {
-  Section,
   SectionContent,
   SectionFooter,
   SectionHeader,
@@ -15,6 +14,8 @@ import { Link } from "react-router-dom";
 import { NavLink } from "@/components/NavLink";
 import { getRecentMessagesAction } from "..";
 import Skeleton from "react-loading-skeleton";
+import { EmptyDataIndicator } from "@/components/EmptyDataIndicator";
+import { Avatar } from "@/components/Avatar";
 
 export default function Messages() {
   const [isNewMessageModalOpen, setIsNewTopicModalOpen] = useState(false);
@@ -44,6 +45,7 @@ export default function Messages() {
             .fill(0)
             .map((_, i) => (
               <div
+                key={i}
                 style={{ marginBottom: 8, paddingLeft: 12, paddingRight: 12 }}
               >
                 <Skeleton width={200} key={i} count={2} />
@@ -53,18 +55,25 @@ export default function Messages() {
           {recentMessages.map((message) => (
             <li key={message.partnerId}>
               <Link to={`/chat/${message.partnerId}`}>
-                <NavLink>
-                  <span style={{ fontWeight: "bold" }}>
-                    {message.partnerFullName}
-                  </span>
-                  <small style={{ display: "block" }}>
-                    {message.lastMessage}
-                  </small>
+                <NavLink className={styles.navLink}>
+                  <Avatar className={styles.avatar} />
+                  <div>
+                    <span style={{ fontWeight: "bold" }}>
+                      {message.partnerFullName}
+                    </span>
+                    <small style={{ display: "block" }}>
+                      {message.lastMessage}
+                    </small>
+                  </div>
                 </NavLink>
               </Link>
             </li>
           ))}
         </ul>
+        {getRecentMessagesStatus === "succeeded" &&
+          recentMessages.length === 0 && (
+            <EmptyDataIndicator message="No messages yet" />
+          )}
       </SectionContent>
       <SectionFooter>
         <Button

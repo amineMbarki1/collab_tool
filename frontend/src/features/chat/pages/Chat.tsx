@@ -53,8 +53,9 @@ export default function Chat() {
       </SectionHeader>
       <SectionContent className={styles.messagesWrapper}>
         {messages &&
-          messages.map(({ body, direction, status }) => (
+          messages.map(({ body, direction, status, requestId }) => (
             <Message
+              key={JSON.stringify(body)}
               className={direction === "RECEIVED" ? styles.right : undefined}
               messageWrapperClassName={
                 direction === "SENT" ? styles.left : undefined

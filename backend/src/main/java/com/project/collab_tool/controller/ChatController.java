@@ -19,8 +19,8 @@ import java.util.List;
 @RequestMapping("/api/chat")
 public class ChatController {
 
-    private ChatService chatService;
-    private ChatMapper chatMapper;
+    private final ChatService chatService;
+    private final ChatMapper chatMapper;
 
     public ChatController(ChatService chatService, ChatMapper chatMapper) {
         this.chatService = chatService;

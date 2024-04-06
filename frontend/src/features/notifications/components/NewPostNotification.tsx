@@ -3,6 +3,8 @@ import TagIcon from "@/assets/icons/tag-icon.svg?react";
 import DotIcon from "@/assets/icons/dot-icon.svg?react";
 import { NewPostNotification as NotificationType } from "../types";
 import styles from "./Notification.module.css";
+import timeAgo from "@/utils/timeAgo";
+import { Link } from "react-router-dom";
 
 export default function NewPostNotification({
   notification,
@@ -10,7 +12,10 @@ export default function NewPostNotification({
   notification: NotificationType;
 }) {
   return (
-    <div className={styles.container}>
+    <Link
+      to={`/topics/${notification.topicId}/post/${notification.postId}`}
+      className={styles.container}
+    >
       <Avatar />
       <div>
         <strong>
@@ -26,11 +31,14 @@ export default function NewPostNotification({
           {notification.topicName}
         </strong>
         &nbsp;topic
-        <div>{`${notification.time}`}</div>
+        <div>{`${timeAgo.format(
+          new Date(notification.time),
+          "twitter-now"
+        )}`}</div>
       </div>
       <div style={{ alignSelf: "baseline" }}>
         <DotIcon className={styles.unreadIcon} height={10} />
       </div>
-    </div>
+    </Link>
   );
 }

@@ -19,4 +19,5 @@ public class TopicResponse {
     private Long id;
     private String description;
     private Set<String> members = new HashSet<>();
+
 }
